@@ -34,11 +34,11 @@ namespace GT {
 		float xRotation; //0x0020
 		float yRotation; //0x0024
 		char pad_0028[1494]; //0x0028
-		bool orbFix2; //0x05FE
+		bool orbFix; //0x05FE
 		char pad_05FF[41]; //0x05FF
 		double yVelocityVec; //0x0628
 		char pad_0630[8]; //0x0630
-		bool orbFix1; //0x0638
+		bool shipMode; //0x0638
 		char pad_0639[6]; //0x0639
 		bool isDead; //0x063F
 		char pad_0640[60]; //0x0640

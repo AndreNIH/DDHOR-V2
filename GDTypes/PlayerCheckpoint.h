@@ -31,8 +31,8 @@ namespace GT {
 		double accYVelocity; //0x0114
 		float xRotation; //0x011C
 		float yRotation; //0x0120
-		bool orbFix1; //0x0124
-		bool orbFix2; //0x0125
+		bool unused; //0x0124
+		bool orbFix; //0x0125
 	}; //Size: 0x0126
 	static_assert(sizeof(PlayerCheckpoint) == 0x126);
 

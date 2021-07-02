@@ -8,8 +8,7 @@ void __fastcall HK::PlayerObject::saveToCheckpoint(GT::PlayerObject* self, int e
 	checkpoint->accYVelocity = self->yVelocityVec;
 	checkpoint->xRotation = self->xRotation;
 	checkpoint->yRotation = self->yRotation;
-	checkpoint->orbFix1 = self->orbFix1;
-	checkpoint->orbFix2 = self->orbFix2;
+	checkpoint->orbFix = self->orbFix;
 }
 
 void __fastcall HK::PlayerObject::loadFromCheckpoint(GT::PlayerObject* self, int edx, GT::PlayerCheckpoint* checkpoint)
@@ -18,8 +17,7 @@ void __fastcall HK::PlayerObject::loadFromCheckpoint(GT::PlayerObject* self, int
 	self->yVelocityVec = checkpoint->accYVelocity;
 	self->xRotation = checkpoint->xRotation;
 	self->yRotation = checkpoint->yRotation;
-	self->orbFix1 = checkpoint->orbFix1;
-	self->orbFix2 = checkpoint->orbFix2;
+	self->orbFix = checkpoint->orbFix;
 }
 
 void HK::PlayerObject::memInit(){
