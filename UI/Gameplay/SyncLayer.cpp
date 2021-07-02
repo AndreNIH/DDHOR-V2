@@ -6,6 +6,8 @@
 #include <GameController.h>
 const int SyncLayer::SEQ_TAG = 5599;
 const int SyncLayer::TAG = 5598;
+typedef void(__thiscall* btnFunction)(void*, int, bool);
+typedef void(__fastcall* btnHFunction)(void*, int,int, bool);
 
 using namespace cocos2d;
 std::string SyncLayer::actEnumToString(Act act){
@@ -23,7 +25,9 @@ cocos2d::CCLabelBMFont* SyncLayer::generateMenuLabel(int playerN, Act act){
 void SyncLayer::endRespawn() {
 	typedef void(__thiscall* ret)(void*);
 	auto respawn = HookManager::get().getFunctionPtr<ret>("44d64426e029288cee9f53ca9e668e55ad40f26ee88334f5c284ba79ba5311c9");
+	auto push = HookManager::get().getFunctionPtr<btnFunction>("1b92b7eb72f93e4fcdc80a3930e784961d54f8e7eb49cfb67738f9485b4e6f9d");
 	respawn(m_playLayer);
+	if(m_reportedActionP2 == Act::PUSH) push(m_playLayer,0, false);
 	hide();
 }
 
@@ -76,8 +80,7 @@ void SyncLayer::hide(){
 }
 
 void SyncLayer::syncPlayerActions(const std::optional<Act>& p1, const std::optional<Act>& p2){
-	typedef void(__thiscall* btnFunction)(void*, int, bool);
-	typedef void(__fastcall* btnHFunction)(void*, int,int, bool);
+	
 	uint32_t base = reinterpret_cast<uint32_t>(GetModuleHandle(0));
 	btnHFunction releaseHook = reinterpret_cast<btnHFunction>(base + 0x111660);
 	btnFunction releaseOriginal = HookManager::get().getFunctionPtr<btnFunction>("cb5a1230ab8154e622c7ba3314c2918add7f6285e5a7324d700553d30af151f1");
