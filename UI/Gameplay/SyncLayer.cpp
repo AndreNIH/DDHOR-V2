@@ -94,21 +94,46 @@ void SyncLayer::syncPlayerActions(const std::optional<Act>& p1, const std::optio
 		releaseOriginal(m_playLayer,0,false);
 }
 
+bool SyncLayer::shouldEnterDual(){
+	auto checkpoint = reinterpret_cast<GT::CheckpointObject*>(m_playLayer->checkpointArray->lastObject());
+	if(checkpoint == nullptr) return false;
+	return checkpoint->player2Checkpoint != nullptr;
+	
+	/*if(!m_playLayer->player1->isDead) return false;
+	if(checkpointsP1->count() && checkpointsP2->count()){
+		for(int i = checkpointsP1->count()-1; i >= 0; --i){
+			auto checkpoint1 = reinterpret_cast<GT::CheckpointObject*>(checkpointsP1->lastObject());
+			auto checkpoint2 = reinterpret_cast<GT::CheckpointObject*>(checkpointsP2->lastObject());
+			if(checkpoint2->playerCheckpoint->xPos == checkpoint1->playerCheckpoint->xPos){
+				return true;
+			}
+		}
+	}*/
+	
+}
+
 void SyncLayer::update(float dt){
 	if (m_playLayer == nullptr) return;
-	GT::CheckpointObject* checkpoint = reinterpret_cast<GT::CheckpointObject*>(m_playLayer->checkpointArray->lastObject());
+	CCArray* checkpointsP1 = m_playLayer->checkpointArray;
+	GT::CheckpointObject* checkpoint = reinterpret_cast<GT::CheckpointObject*>(checkpointsP1->lastObject());
 	auto& [p1, p2] = Bot::get().recorder();
-	
+
 	const float newPos = checkpoint ? checkpoint->playerCheckpoint->xPos : 0.0f;
 	p1.rollback(newPos);
 	p2.rollback(newPos);
+	m_playLayer->isDualMode = shouldEnterDual();
+	if(!m_playLayer->isDualMode) m_reportedActionP2 = Act::RELEASE;
 	if(Bot::get().config().getNoSyncLayer()) {
 		endRespawn();
 		syncPlayerActions(p1.lastAction(),p2.lastAction());
 		return;
 	}
+	
 	const bool respawn1 =  (!p1.lastAction().has_value() && m_reportedActionP1 == Act::RELEASE) || p1.lastAction() == m_reportedActionP1;
-	const bool respawn2 =  (!p2.lastAction().has_value() && m_reportedActionP2 == Act::RELEASE) || p2.lastAction() == m_reportedActionP2;
+	bool respawn2 =  (!p2.lastAction().has_value() && m_reportedActionP2 == Act::RELEASE) || p2.lastAction() == m_reportedActionP2;
+	//Force respawn if 2P is empty, in case the player manually deletes checkpoints and the 2P forced reportin stops
+	//respawn2 |= m_playLayer->checkpointArray2->count() == 0; 
+	
 	if (!(m_cacheRespawnP1 == respawn1 && m_cacheRespawnP2 == respawn2)) {
 		m_cacheRespawnP1 = respawn1;
 		m_cacheRespawnP2 = respawn2;

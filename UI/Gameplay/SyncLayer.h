@@ -32,6 +32,7 @@ public:
 	
 	static const int TAG;
 	void bindPlayLayer(GT::PlayLayer* playLayer) { m_playLayer = playLayer; }
+	bool shouldEnterDual();
 	void reportForP1(Act action) { m_reportedActionP1 = action; }
 	void reportForP2(Act action) { m_reportedActionP2 = action; }
 

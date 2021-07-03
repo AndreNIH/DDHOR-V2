@@ -19,7 +19,7 @@ namespace GT {
 		int dontAwardFlag2; //0x02E2
 		char pad_02E6[82]; //0x02E6
 		cocos2d::CCArray* checkpointArray; //0x0338
-
+		cocos2d::CCArray* checkpointArray2; //0x033C
 
 	}; //Size: 0x02DE
 #pragma pack(pop)
