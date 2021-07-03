@@ -121,8 +121,9 @@ void SyncLayer::update(float dt){
 	const float newPos = checkpoint ? checkpoint->playerCheckpoint->xPos : 0.0f;
 	p1.rollback(newPos);
 	p2.rollback(newPos);
-	m_playLayer->isDualMode = shouldEnterDual();
 	if(!m_playLayer->isDualMode) m_reportedActionP2 = Act::RELEASE;
+	m_playLayer->isDualMode = shouldEnterDual();
+	
 	if(Bot::get().config().getNoSyncLayer()) {
 		endRespawn();
 		syncPlayerActions(p1.lastAction(),p2.lastAction());
