@@ -63,6 +63,9 @@ void __fastcall HK::PlayLayer::resetLevel(GT::PlayLayer* self){
 	}
 	else if (Bot::get().getState() == Bot::State::Playing) {
 		respawn(self);
+		auto release = HookManager::get().getFunctionPtr<void(__thiscall*)(void*, int, bool)>("cb5a1230ab8154e622c7ba3314c2918add7f6285e5a7324d700553d30af151f1");
+		release(self, 0, false);
+		release(self, 0, true);
 		auto& players = Bot::get().player();
 		players.first.rewind(self->player1->XPos);
 		players.second.rewind(self->player1->XPos);
