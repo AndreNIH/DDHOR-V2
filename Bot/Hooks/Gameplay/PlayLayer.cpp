@@ -53,10 +53,8 @@ void __fastcall HK::PlayLayer::resetLevel(GT::PlayLayer* self){
 		//if-statement required, sync is nullptr when entering the level
 		if(sync) {
 			if(!self->player1->isDead){
-				uint32_t base = reinterpret_cast<uint32_t>(GetModuleHandle(0));
-				dpPtr kill = reinterpret_cast<dpPtr>(base + 0x1efaa0);
-				kill(self->player1,false);
-				kill(self->player2,false);
+				*reinterpret_cast<bool*>((int)(self->player1)+0x662) = true;
+				*reinterpret_cast<bool*>((int)(self->player2)+0x662) = true;
 			}
 			sync->show();
 		}else respawn(self);
