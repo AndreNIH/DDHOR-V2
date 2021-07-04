@@ -38,7 +38,7 @@ void __fastcall HK::PlayLayer::update(GT::PlayLayer* self, int edx, float dt){
 	pUpdateOriginal(self, dt);
 	if (Bot::get().getState() == Bot::State::Playing) {
 		Bot::get().player().first.peform(self->player1->XPos);
-		Bot::get().player().second.peform(self->player2->XPos);
+		Bot::get().player().second.peform(self->player1->XPos);
 	}
 	
 }
