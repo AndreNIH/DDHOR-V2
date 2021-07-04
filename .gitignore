@@ -349,5 +349,5 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-#Ignore CMAKE buld folder
+#Ignore CMAKE build folder
 build/
