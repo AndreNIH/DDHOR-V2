@@ -20,7 +20,7 @@
 #include "Bot/Hooks/HookManger.h"
 #include "Bot/Engine/Manager.h"
 #include <filesystem>
-__declspec(dllexport) const char* DDHORBOT_VERSION = "2.0.2";
+__declspec(dllexport) const char* DDHORBOT_VERSION = "2.0.3";
 
 void superInit() {
     //console
