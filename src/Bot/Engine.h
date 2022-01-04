@@ -1,5 +1,9 @@
 #pragma once
 #include "Behaviour/BotBehavior.h"
+#include "Serializer/Serialization.h"
+#include "Deserializer/Deserialization.h"
+#include <nlohmann/json.hpp>
+
 enum class BotType{};
 
 
@@ -13,8 +17,8 @@ public:
     void rewindActionQueue(PlayLayer* playLayer){_behaviour->rewindActionQueue(playLayer);}
     void reset() {_behaviour->reset();}
     
-    void importInputs();
-    void exportInputs();
+    void importInputs(Deserializer::BotDeserializer* deserializer);
+    nlohmann::json exportInputs(Serializer::BotSerializer* serializer);
 
 };
 
