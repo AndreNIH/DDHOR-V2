@@ -1,0 +1,7 @@
+{
+  "name": "ddhor",
+  "version-string": "3.0.0",
+  "dependencies": [ 
+    "nlohmann-json"
+  ]
+}
