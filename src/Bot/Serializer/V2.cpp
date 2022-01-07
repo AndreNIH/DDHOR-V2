@@ -48,6 +48,7 @@ namespace Serializer
                     typeid(this).name());
         
         json serializedObj;
+        serializedObj["version"] = "2.0";
         serializedObj["levelID"] = nullptr;
         serializedObj["fps"] = object->getFPSValue();
         serializedObj["macro"] = object->getMode() == BotMode::kXPos ? "x-position" : "frames";
