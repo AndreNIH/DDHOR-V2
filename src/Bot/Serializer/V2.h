@@ -3,10 +3,14 @@
 
 class XBehaviour;
 class FrameBehaviour;
+class Bot;
 
 namespace Serializer{
     class V2 : public BotSerializer{
-        void serialize(XBehaviour* object) override;
-        void serialize(FrameBehaviour* object) override;
+    public:
+        nlohmann::json serialize(XBehaviour* object) override;
+        nlohmann::json serialize(FrameBehaviour* object) override;
+        nlohmann::json serialize(Bot* object) override;
+        
     };
 }

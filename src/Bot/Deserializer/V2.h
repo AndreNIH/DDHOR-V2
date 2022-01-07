@@ -1,6 +1,10 @@
 #pragma once
 #include "Deserialization.h"
-#include "../Behaviour/BotBehavior.h"
+
+
+class XBehaviour;
+class FrameBehaviour;
+class Bot;
 
 namespace Deserializer{
     
@@ -8,6 +12,7 @@ namespace Deserializer{
     public:
         void deserialize(XBehaviour* object) override;
         void deserialize(FrameBehaviour* object) override;
+        void deserialize(Bot* object) override;
     };
     
 }

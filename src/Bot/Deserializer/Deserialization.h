@@ -1,22 +1,30 @@
 #pragma once
 #include <string>
+#include <memory>
 
 class XBehaviour;
 class FrameBehaviour;
+class Bot;
 
 namespace Deserializer
 {
     class BotDeserializer{
     private:
         std::string _targetFile;
-    
+        
     public:
         virtual void deserialize(XBehaviour* object)=0;
         virtual void deserialize(FrameBehaviour* object)=0;
+        virtual void deserialize(Bot* object)=0;
+        
         void setFilename(const std::string& filename){_targetFile = filename;}
         std::string getFilename() const{return _targetFile;}
+
+        static std::unique_ptr<BotDeserializer> create(const std::string& id);
         
     };
+
+
 
     /*class DDHORV2 : public BotDeserializer{
     public:
@@ -73,7 +81,7 @@ namespace Deserializer
 
 
 bool mock(){
-    BotBehaviour* object;
+    BotBackend* object;
     Deserializer::BotDeserializer* serdeMode=nullptr;
     
 

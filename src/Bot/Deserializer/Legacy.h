@@ -7,6 +7,7 @@ namespace Deserializer{
     public:
         void deserialize(XBehaviour* object) override;
         void deserialize(FrameBehaviour* object) override;
+        void Legacy::deserialize(Bot* object) override;
     };
 
     

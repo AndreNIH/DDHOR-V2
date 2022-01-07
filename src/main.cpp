@@ -5,6 +5,7 @@
 #include "Bot/Behaviour/BotBehavior.h"
 #include "Bot/Deserializer/Legacy.h"
 #include "Bot/Deserializer/V2.h"
+#include "Bot/Engine.h"
 //Mock PlayLayer
 /*struct PlayLayer{
     float xpos;
@@ -88,21 +89,22 @@ public:
 int main(int, char**) {
     /*XBehaviour xposBot;
     FrameBehaviour frameBot;*/
-    BotBehaviour* xposBot = new XBehaviour;
-    BotBehaviour* frameBot = new FrameBehaviour;
-    Deserializer::BotDeserializer* serdeObject = new Deserializer::Legacy;
-
+    /*BotBackend* xposBot = new XBehaviour;
+    BotBackend* frameBot = new FrameBehaviour;
+    Bot* bot = new Bot;
+    Deserializer::BotDeserializer* deserializerObject = new Deserializer::Legacy;
     
-    serdeObject->setFilename("Macro.ddhor");
-    xposBot->runDeserializer(serdeObject);
-    frameBot->runDeserializer(serdeObject);
     
-    delete serdeObject;
-    serdeObject = new Deserializer::V2;
+    deserializerObject->setFilename("Macro.ddhor");
+    xposBot->runDeserializer(deserializerObject);
+    frameBot->runDeserializer(deserializerObject);
+    bot->importMacro("test");*/
+    /*delete deserializerObject;
+    deserializerObject = new Deserializer::V2;
     
-    serdeObject->setFilename("Macro.ddhor");
-    xposBot->runDeserializer(serdeObject);
-    frameBot->runDeserializer(serdeObject);
+    deserializerObject->setFilename("Macro.ddhor");
+    xposBot->runDeserializer(deserializerObject);
+    frameBot->runDeserializer(deserializerObject);*/
     
     
 }
