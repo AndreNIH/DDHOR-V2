@@ -21,9 +21,11 @@ namespace Deserializer{
        };
 
        try{
-            return factory.at(id)();
+            auto obj = factory.at(id)();
+            spdlog::info("Succesfully created an object with ID '{}'", id);
+            return obj;
        }catch(std::out_of_range& ex){
-           spdlog::error("Attempted to create a deserializer object with an invalid id '{}'", id);
+           spdlog::error("Attempted to create a deserializer object with an invalid ID '{}'", id);
            return nullptr;
        }
     }
