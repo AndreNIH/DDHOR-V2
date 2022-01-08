@@ -14,3 +14,4 @@ struct InAct{
 };
 
 const std::string actionAsStr(Action action);
+Action strAsAction(const std::string& str);
