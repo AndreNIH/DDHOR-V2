@@ -28,7 +28,7 @@ class XBehaviour : public BotBackend{
 public:
     void insertAction(PlayLayer* playLayer) override;
     void rewindActionQueue(PlayLayer* playLayer) override;
-    void reset() override;
+    void reset() override{_inputs.clear();}
     
     const std::vector<InAct<float>>& getInputs(){return _inputs;}
     void insertInputDirectly(const InAct<float>& input){_inputs.push_back(input);}
@@ -42,7 +42,7 @@ class FrameBehaviour : public BotBackend{
 public:
     void insertAction(PlayLayer* playLayer) override;
     void rewindActionQueue(PlayLayer* playLayer) override;    
-    void reset() override;
+    void reset() override {_inputs.clear();}
 
     const std::vector<InAct<uint32_t>>& getInputs(){return _inputs;}
     void insertInputDirectly(const InAct<uint32_t>& input){_inputs.push_back(input);}

@@ -18,7 +18,7 @@ struct DDHORHeader{
 template<typename T>
 T binaryRead(std::ifstream& ifs){
     T val;
-    file.read(reinterpret_cast<char*>(&val), sizeof(T));
+    ifs.read(reinterpret_cast<char*>(&val), sizeof(T));
     return val;
 }
 
@@ -32,7 +32,7 @@ namespace Deserializer
     void V1::deserialize(XBehaviour* object) 
     {
         std::ifstream file(getFilename(), std::ios::binary);
-        if(file.is_open()) throw DerError{getFilename() + " not found"};
+        if(!file.is_open()) throw DerError{getFilename() + " not found"};
         DDHORHeader header = binaryRead<DDHORHeader>(file);
         
         int actionCount=0;
@@ -50,7 +50,7 @@ namespace Deserializer
 
     void V1::deserialize(Bot* object){
         std::ifstream file(getFilename(), std::ios::binary);
-        if(file.is_open()) throw DerError{getFilename() + " not found"};
+        if(!file.is_open()) throw DerError{getFilename() + " not found"};
         DDHORHeader header;
         file.read(reinterpret_cast<char*>(&header), sizeof(DDHORHeader));
         object->setFPSValue(header.fps);

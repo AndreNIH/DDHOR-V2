@@ -6,4 +6,5 @@ namespace Deserializer{
 
 struct Deserializable{
     virtual void runDeserializer(Deserializer::BotDeserializer* deserializaitionObject)=0;
+    virtual ~Deserializable(){}
 };

@@ -14,24 +14,25 @@ namespace Validators{
     //=========================================================================
     
     bool isDDHORV1(const std::string& filename){
-        std::ifstream file(filename);
-        if(file.is_open()) return false;
-        char sig[4] = {0};
+        std::ifstream file(filename, std::ios::binary);
+        if(!file.is_open()) return false;
+        char sig[5] = {0};
         file.read(&sig[0], 4);
         return strcmp(sig,"DDHR") == 0;
     }
 
     bool isDDHORV2(const std::string& filename){
         JSONLazyValidator validator;
-        validator.setQualifierPattern("{[{}");
+        validator.setQualifierPattern("{[");
         validator.setStringCorrection("]}");
         validator.setValidator(
             [](const std::string jstring)->bool{
+                spdlog::info(jstring);
                 auto object = nlohmann::json::parse(jstring);
                 TRUE_OR_RETF(object.contains("fps"));
                 TRUE_OR_RETF(object.contains("inputsP1"));
-                TRUE_OR_RETF(object.at("inputsP1").contains("action"));
-                TRUE_OR_RETF(object.at("inputsP1").contains("position"));
+                //TRUE_OR_RETF(object.at("inputsP1").contains("action"));
+                //TRUE_OR_RETF(object.at("inputsP1").contains("position"));
                 return true;
             }
         );

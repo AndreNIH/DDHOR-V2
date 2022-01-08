@@ -2,9 +2,6 @@
 #include <variant>
 #include <vector>
 #include <string> 
-#include "Bot/Behaviour/BotBehavior.h"
-#include "Bot/Deserializer/Legacy.h"
-#include "Bot/Deserializer/V2.h"
 #include "Bot/Engine.h"
 //Mock PlayLayer
 /*struct PlayLayer{
@@ -105,6 +102,8 @@ int main(int, char**) {
     deserializerObject->setFilename("Macro.ddhor");
     xposBot->runDeserializer(deserializerObject);
     frameBot->runDeserializer(deserializerObject);*/
-    
+    Bot bot;
+    bot.importMacro("v1test.ddhor");
+    bot.importMacro("v2test.ddhor");
     
 }

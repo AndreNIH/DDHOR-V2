@@ -1,18 +1,7 @@
 #include "FastJSONValidator.h"
 #include <spdlog/spdlog.h>
 #include <fstream>
-
-class BraceCounter{
-private:
-    std::unordered_map<char, int> _template;
-    std::unordered_map<char, int> _matches;
-    std::string _pattern;
-public: 
-    void buildPattern(const std::string& pattern);
-    void feed(char character);
-    bool matchesPattern() const;
-    std::string getPattern() const {return _pattern;}
-};
+#include <nlohmann/json.hpp>
 
 void BraceCounter::buildPattern(const std::string& pattern){
     _template.clear();
@@ -58,12 +47,17 @@ bool JSONLazyValidator::validateFile(const std::string &filename)
     std::ifstream file(filename);
     std::string strPart;
     char character;
-    while(file >> character){
-        strPart += character;
-        _braces.feed(character);
-        if(_braces.matchesPattern())
-            return _validator(strPart + _fix);
-    
+    try{
+        while(file >> character){
+            strPart += character;
+            _braces.feed(character);
+            if(_braces.matchesPattern())
+                return _validator(strPart + _fix);
+        }
+    }catch(const nlohmann::json::exception& ex){
+        spdlog::error("Error occured during file preparsing.\nFile: '{}'.\nDetails: {}", filename, ex.what());
+        return false;
+    }
     spdlog::debug("File {} did not match the pattern '{}'", filename, _braces.getPattern());
     return false;
 }

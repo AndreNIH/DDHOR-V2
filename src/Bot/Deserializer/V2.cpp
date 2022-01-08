@@ -41,8 +41,8 @@ namespace Deserializer
                 : deserializedObj.at("inputsP2");
             
             for(auto& input :player){
-                unsigned int pos = player.at("position");
-                Action action = strAsAction(player.at("action"));
+                unsigned int pos = input.at("position");
+                Action action = strAsAction(input.at("action"));
                 object->insertInputDirectly({pos,action});
             }
 
@@ -56,12 +56,12 @@ namespace Deserializer
         try{
             auto deserializedObj = getBufferedJSON();
             auto player = object->hasPlayer2Logic()
-                ? deserializedObj.at("inputsP1")
-                : deserializedObj.at("inputsP2");
+                ? deserializedObj.at("inputsP2")
+                : deserializedObj.at("inputsP1");
             
-            for(auto& input :player){
-                float pos = player.at("position");
-                Action action = strAsAction(player.at("action"));
+            for(auto& input : player){
+                float pos = input.at("position");
+                Action action = strAsAction(input.at("action"));
                 object->insertInputDirectly({pos,action});
             }
 
@@ -75,8 +75,8 @@ namespace Deserializer
         try{
             auto deserializedObj = getBufferedJSON();
             object->setFPSValue(deserializedObj.at("fps"));
-            if(deserializedObj.at("mode") == "x-position") object->setMode(BotMode::kXPos);
-            else if(deserializedObj.at("mode") == "frames") object->setMode(BotMode::kFrames);
+            if(deserializedObj.at("macro") == "x-position") object->setMode(BotMode::kXPos);
+            else if(deserializedObj.at("macro") == "frames") object->setMode(BotMode::kFrames);
             else throw DerError{"Invalid argument passed at 'mode' field: {} is not a valid argument"};
         }catch(nlohmann::json::exception& ex){
             throw DerError(ex.what());

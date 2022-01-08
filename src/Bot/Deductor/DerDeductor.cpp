@@ -49,10 +49,15 @@ std::unique_ptr<Deserializer::BotDeserializer> getCompatibleDeserializer(const s
         for(auto& creator : creatorList->second){
             spdlog::info("Matching the {} file with a '{}' deserializer", ext, creator.getFactoryId());
             auto der = creator.createIfValid(file);
-            if(der != nullptr) return der;
+            if(der != nullptr) {
+                der->setFilename(file);
+                return der;
+            }
         }   
+    }else{
+        spdlog::warn(" Could not find any registed deserializers which match a {} file", ext);
     }
-    spdlog::warn("Failed to obtain a deserializer for {}. Could not find any deserializers which match a {}  file", file ,ext);
+    spdlog::warn("Failed to obtain a deserializer for {}", file);
     return nullptr;
 }
 
