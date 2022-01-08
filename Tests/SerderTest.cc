@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../src/Bot/Deserializer/Deserialization.h"
-#include "../src/Bot/Deserializer/V2.h"
-#include "../src/Bot/Deserializer/Legacy.h"
+#include "../src/Bot/Deserializer/ddhor/V2.h"
+#include "../src/Bot/Deserializer/ddhor/V1.h"
 
 using ::testing::WhenDynamicCastTo;
 using ::testing::Ne;

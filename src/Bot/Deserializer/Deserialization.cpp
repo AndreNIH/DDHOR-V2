@@ -3,8 +3,8 @@
 #include <functional>
 #include <spdlog/spdlog.h>
 
-#include "Legacy.h"
-#include "V2.h"
+#include "ddhor/V1.h"
+#include "ddhor/V2.h"
 
 namespace Deserializer{
     std::unique_ptr<BotDeserializer> BotDeserializer::create(const std::string& id) 
@@ -12,7 +12,7 @@ namespace Deserializer{
        using ProductT = std::unique_ptr<BotDeserializer>;
        using CreatorT = std::function<ProductT()>;
        static std::unordered_map<std::string, CreatorT> factory = {
-           {"legacy", []()->ProductT {return std::make_unique<V1>();}},
+           {"v1", []()->ProductT {return std::make_unique<V1>();}},
            {"v2", []()->ProductT {return std::make_unique<V2>();}},
            {"tasbot", []()->ProductT {return nullptr;}},
            {"xbot", []()->ProductT {return nullptr;}},

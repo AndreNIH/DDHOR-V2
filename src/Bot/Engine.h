@@ -22,7 +22,7 @@ public:
     void rewindActionQueue(PlayLayer* playLayer){_behaviour->rewindActionQueue(playLayer);}
     void reset() {_behaviour->reset();}
 
-
+    //=======================================================
     void runDeserializer(Deserializer::BotDeserializer* deserializaitionObject){
         _behaviour->runDeserializer(deserializaitionObject);
     }

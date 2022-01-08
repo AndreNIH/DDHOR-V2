@@ -1,6 +1,10 @@
 #pragma once
-#include "Deserialization.h"
-#include "../Behaviour/BotBehavior.h"
+#include "../Deserialization.h"
+
+class XBehaviour;
+class FrameBehaviour;
+class Bot;
+
 namespace Deserializer{
     class V1 : public BotDeserializer{
     public:

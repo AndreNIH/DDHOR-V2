@@ -31,14 +31,14 @@ std::unique_ptr<Deserializer::BotDeserializer> getCompatibleDeserializer(const s
     static std::unordered_map<std::string, Cont> mappings
     {
             {".ddhor", {
-                Creator("legacy", Validators::isDDHORV1), 
+                Creator("v1", Validators::isDDHORV1), 
                 Creator("v2", Validators::isDDHORV2)
-            }}/*,
+            }},
 
             {".json", {
                 Creator("tasbot1", Validators::isTASBOT1),
                 Creator("tasbot2", Validators::isTASBOT2)
-            }}*/
+            }}
     };
 
     const std::string ext = std::filesystem::path(file).extension().string();    
