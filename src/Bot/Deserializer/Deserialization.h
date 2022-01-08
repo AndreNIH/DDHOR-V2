@@ -15,6 +15,12 @@ namespace Deserializer
         explicit DerError(const char* _Message) : _Mybase(_Message) {}
     };
     
+    class UnsupportedConversion:  public std::runtime_error{
+        using _Mybase = std::runtime_error;
+        explicit UnsupportedConversion(const std::string& _Message) : _Mybase(_Message.c_str()) {}
+        explicit UnsupportedConversion(const char* _Message) : _Mybase(_Message) {}
+    };
+
     class BotDeserializer{
     private:
         std::string _targetFile;
