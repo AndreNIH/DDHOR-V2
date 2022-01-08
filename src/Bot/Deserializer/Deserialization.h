@@ -8,6 +8,13 @@ class Bot;
 
 namespace Deserializer
 {
+    class DerError : public std::runtime_error{
+    public:
+        using _Mybase = std::runtime_error;
+        explicit DerError(const std::string& _Message) : _Mybase(_Message.c_str()) {}
+        explicit DerError(const char* _Message) : _Mybase(_Message) {}
+    };
+    
     class BotDeserializer{
     private:
         std::string _targetFile;
