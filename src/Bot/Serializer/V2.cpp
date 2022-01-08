@@ -34,7 +34,7 @@ namespace Serializer
         json serializedPlayer;
         for(auto& input : object->getInputs()){
             serializedPlayer.push_back({
-                {"position", input.location},
+                {"frame", input.location},
                 {"action", actionAsStr(input.action)}
             });
         }
@@ -53,7 +53,7 @@ namespace Serializer
         serializedObj["fps"] = object->getFPSValue();
         serializedObj["macro"] = object->getMode() == BotMode::kXPos ? "x-position" : "frames";
         serializedObj["inputsP1"] = object->player().first.runSerializer(this);
-        serializedObj["inputsP2"] = object->player().first.runSerializer(this);
+        serializedObj["inputsP2"] = object->player().second.runSerializer(this);
 
         return serializedObj;
     }
