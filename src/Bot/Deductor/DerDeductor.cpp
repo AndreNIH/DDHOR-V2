@@ -22,6 +22,8 @@ public:
         }
         return nullptr;
     } 
+
+    std::string getFactoryId() const {return _factoryId;}
 };
 
 std::unique_ptr<Deserializer::BotDeserializer> getCompatibleDeserializer(const std::string file){
@@ -31,24 +33,26 @@ std::unique_ptr<Deserializer::BotDeserializer> getCompatibleDeserializer(const s
             {".ddhor", {
                 Creator("legacy", Validators::isDDHORV1), 
                 Creator("v2", Validators::isDDHORV2)
-            }},
+            }}/*,
 
             {".json", {
                 Creator("tasbot1", Validators::isTASBOT1),
                 Creator("tasbot2", Validators::isTASBOT2)
-            }}
+            }}*/
     };
 
     const std::string ext = std::filesystem::path(file).extension().string();    
     auto creatorList = mappings.find(ext);
     
     if(creatorList != std::end(mappings)){
+        spdlog::info("Requesting a deserializer for {}", file);
         for(auto& creator : creatorList->second){
+            spdlog::info("Matching the {} file with a '{}' deserializer", ext, creator.getFactoryId());
             auto der = creator.createIfValid(file);
             if(der != nullptr) return der;
         }   
     }
-    spdlog::warn("Failed to obtain a deserializer for {}.Could not find any deserializers which match a {}  file", file ,ext);
+    spdlog::warn("Failed to obtain a deserializer for {}. Could not find any deserializers which match a {}  file", file ,ext);
     return nullptr;
 }
 
