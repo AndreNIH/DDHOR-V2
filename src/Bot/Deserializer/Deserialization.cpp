@@ -12,7 +12,7 @@ namespace Deserializer{
        using ProductT = std::unique_ptr<BotDeserializer>;
        using CreatorT = std::function<ProductT()>;
        static std::unordered_map<std::string, CreatorT> factory = {
-           {"legacy", []()->ProductT {return std::make_unique<Legacy>();}},
+           {"legacy", []()->ProductT {return std::make_unique<V1>();}},
            {"v2", []()->ProductT {return std::make_unique<V2>();}},
            {"tasbot", []()->ProductT {return nullptr;}},
            {"xbot", []()->ProductT {return nullptr;}},
