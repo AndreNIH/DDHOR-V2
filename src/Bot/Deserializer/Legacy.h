@@ -2,12 +2,11 @@
 #include "Deserialization.h"
 #include "../Behaviour/BotBehavior.h"
 namespace Deserializer{
-    
-    class Legacy : public BotDeserializer{
+    class V1 : public BotDeserializer{
     public:
         void deserialize(XBehaviour* object) override;
         void deserialize(FrameBehaviour* object) override;
-        void Legacy::deserialize(Bot* object) override;
+        void deserialize(Bot* object) override;
     };
 
     
