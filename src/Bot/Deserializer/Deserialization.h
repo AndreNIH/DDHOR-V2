@@ -16,6 +16,7 @@ namespace Deserializer
     };
     
     class UnsupportedConversion:  public std::runtime_error{
+    public:
         using _Mybase = std::runtime_error;
         explicit UnsupportedConversion(const std::string& _Message) : _Mybase(_Message.c_str()) {}
         explicit UnsupportedConversion(const char* _Message) : _Mybase(_Message) {}
