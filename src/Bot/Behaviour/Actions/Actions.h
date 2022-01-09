@@ -7,11 +7,14 @@ enum class Action{
 };
 
 
+//Input-Action Structure
 template<typename PositionT>
-struct InAct{
+struct IAS{
     PositionT location;
     Action action;
 };
 
-const std::string actionAsStr(Action action);
-Action strAsAction(const std::string& str);
+namespace ActionTools{
+    const std::string actionAsStr(Action action);
+    Action strAsAction(const std::string& str);
+}

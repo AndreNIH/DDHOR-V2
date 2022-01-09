@@ -3,13 +3,13 @@
 
 #include <fmt/format.h>
 
-const std::string actionAsStr(Action action){
+const std::string ActionTools::actionAsStr(Action action){
     if(action == Action::PUSH) return "PUSH";
     else return "RELEASE";
 }
 
 
-Action strAsAction(const std::string& str) 
+Action ActionTools::strAsAction(const std::string& str) 
 {
     if(str == "PUSH") return Action::PUSH;
     else if(str == "RELEASE") return Action::RELEASE;

@@ -19,7 +19,7 @@ namespace Serializer
         for(auto& input : object->getInputs()){
             serializedPlayer.push_back({
                 {"position", input.location},
-                {"action", actionAsStr(input.action)}
+                {"action", ActionTools::actionAsStr(input.action)}
             });
         }
         return serializedPlayer;
@@ -35,7 +35,7 @@ namespace Serializer
         for(auto& input : object->getInputs()){
             serializedPlayer.push_back({
                 {"frame", input.location},
-                {"action", actionAsStr(input.action)}
+                {"action", ActionTools::actionAsStr(input.action)}
             });
         }
         return serializedPlayer;
