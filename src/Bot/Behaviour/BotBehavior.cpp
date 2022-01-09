@@ -5,7 +5,7 @@ using std::cout;
 // XBehaviour Class
 //=================================================
 
-void XBehaviour::insertAction(PlayLayer* playLayer) 
+void XBehaviour::insertAction(Action action) 
 {
 }
 
@@ -30,7 +30,7 @@ nlohmann::json XBehaviour::runSerializer(Serializer::BotSerializer* serializaiti
 // FrameBehaviour Class
 //=================================================
 
-void FrameBehaviour::insertAction(PlayLayer* playLayer) 
+void FrameBehaviour::insertAction(Action action) 
 {
     
 }

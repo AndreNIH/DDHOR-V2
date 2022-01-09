@@ -43,7 +43,7 @@ namespace Deserializer
         for(int i=0; i < actionCount; i++){
             float xpos    = binaryRead<float>(file);
             Action action = binaryRead<Action>(file);
-            object->insertInputDirectly({xpos, action});
+            object->insertInput({xpos, action});
         }
         
     }

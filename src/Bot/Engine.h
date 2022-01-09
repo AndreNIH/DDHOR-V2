@@ -18,7 +18,7 @@ private:
     const bool _isP2;
 
 public:
-    void insertAction(PlayLayer* playLayer){_behaviour->insertAction(playLayer);};
+    void insertAction(Action action){_behaviour->insertAction(playLayer);};
     void rewindActionQueue(PlayLayer* playLayer){_behaviour->rewindActionQueue(playLayer);}
     void reset() {_behaviour->reset();}
 

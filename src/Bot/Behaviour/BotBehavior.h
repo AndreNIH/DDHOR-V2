@@ -9,15 +9,17 @@ using PlayLayer = void;
 template<typename T>
 class BPStorage{
 protected:
-    
-    std::vector<>
+    std::vector<IAS<T>> _inputsContainer;
+public:
+    const std::vector<IAS<T>>& getInputs() const{return _inputContainer};
+    void insertInput(const IAT<T>& input) {_inputsContainer.push_back(input);}
 };
 
 class BotBackend : public Deserializable, public Serializable{    
 private:
     bool _isPlayer2=false;
 public:
-    virtual void insertAction(PlayLayer* playLayer)=0;
+    virtual void insertAction(Action action)=0;
     virtual void rewindActionQueue(PlayLayer* playLayer)=0;
     virtual void reset()=0;
     virtual void perform();
@@ -30,29 +32,21 @@ public:
     //virtual void runDeserializer(Deserializer::BotDeserializer* deserializaitionObject)=0;
 };
 
-class XBehaviour : public BotBackend{
-    std::vector<IAS<float>> _inputs;
+class XBehaviour : public BotBackend, public BPStorage<float>{
 public:
-    void insertAction(PlayLayer* playLayer) override;
+    void insertAction(Action action) override;
     void rewindActionQueue(PlayLayer* playLayer) override;
-    void reset() override{_inputs.clear();}
-    
-    const std::vector<IAS<float>>& getInputs(){return _inputs;}
-    void insertInputDirectly(const IAS<float>& input){_inputs.push_back(input);}
+    void reset() override{_inputsContainer.clear();}
     
     nlohmann::json runSerializer(Serializer::BotSerializer* serializaitionObject) override;
     void runDeserializer(Deserializer::BotDeserializer* deserializaitionObject) override;
 };
 
-class FrameBehaviour : public BotBackend{
-    std::vector<IAS<uint32_t>> _inputs;
+class FrameBehaviour : public BotBackend, public BPStorage<int>{
 public:
-    void insertAction(PlayLayer* playLayer) override;
+    void insertAction(Action action) override;
     void rewindActionQueue(PlayLayer* playLayer) override;    
-    void reset() override {_inputs.clear();}
-
-    const std::vector<IAS<uint32_t>>& getInputs(){return _inputs;}
-    void insertInputDirectly(const IAS<uint32_t>& input){_inputs.push_back(input);}
+    void reset() override {_inputsContainer.clear();}
 
     nlohmann::json runSerializer(Serializer::BotSerializer* serializaitionObject) override;
     void runDeserializer(Deserializer::BotDeserializer* deserializaitionObject) override;

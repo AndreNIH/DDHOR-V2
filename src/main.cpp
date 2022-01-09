@@ -29,7 +29,7 @@ class BotPolicy{
 private:
 
 public:
-    virtual void insertAction(PlayLayer* playLayer)=0;
+    virtual void insertAction(Action action)=0;
     virtual void rewindActionQueue(PlayLayer* playLayer)=0;    
     virtual void reset()=0;
 
@@ -42,7 +42,7 @@ class FramesPolicy : public BotPolicy{
 private:
     std::vector<int> _frames;
 public:
-    void insertAction(PlayLayer* playLayer) override{
+    void insertAction(Action action) override{
         std::cout << "FramesPolicy insertAction called\n";
         _frames.push_back(playLayer->elapsedFrames);
     }
@@ -63,7 +63,7 @@ private:
     std::vector<float> _xpositions;
 
 public:
-    void insertAction(PlayLayer* playLayer) override{
+    void insertAction(Action action) override{
         std::cout << "XPosPolicy insertAction called\n";
         _xpositions.push_back(playLayer->xpos);
     }

@@ -43,7 +43,7 @@ namespace Deserializer
             for(auto& input :player){
                 unsigned int pos = input.at("position");
                 Action action = ActionTools::strAsAction(input.at("action"));
-                object->insertInputDirectly({pos,action});
+                object->insertInput({pos,action});
             }
 
         }catch(nlohmann::json::exception& ex){
@@ -62,7 +62,7 @@ namespace Deserializer
             for(auto& input : player){
                 float pos = input.at("position");
                 Action action = ActionTools::strAsAction(input.at("action"));
-                object->insertInputDirectly({pos,action});
+                object->insertInput({pos,action});
             }
 
         }catch(nlohmann::json::exception& ex){
