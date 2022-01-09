@@ -12,7 +12,7 @@ protected:
     std::vector<IAS<T>> _inputsContainer;
 public:
     const std::vector<IAS<T>>& getInputs() const{return _inputContainer};
-    void insertInput(const IAT<T>& input) {_inputsContainer.push_back(input);}
+    void insertInput(const IAS<T>& input) {_inputsContainer.push_back(input);}
 };
 
 class BotBackend : public Deserializable, public Serializable{    
