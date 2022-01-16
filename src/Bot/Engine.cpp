@@ -36,3 +36,29 @@ void Bot::setMode(BotMode mode){
         _player2.setBackend(std::make_unique<XPosBackend>());
     }
 }*/
+
+std::unique_ptr<PlayerInput> BotPlayer::generateInputObject(){
+    auto inputObject = std::make_unique<PlayerInput>();
+    if(_isPlayer2) inputObject->setPlayer2();
+    return inputObject;
+}
+
+void BotPlayer::insertClick(){
+    auto pushCommand = std::make_unique<DoPress>(generateInputObject());
+    _inputs->insertCommand(std::move(pushCommand));
+}
+
+void BotPlayer::insertRelease(){
+    auto releaseCommand = std::make_unique<DoPress>(generateInputObject());
+    _inputs->insertCommand(std::move(releaseCommand));
+}
+
+void BotPlayer::rewindActions(){
+    _inputs->rewindQueue();
+}
+
+void BotPlayer::setCommandBackend(std::unique_ptr<CommandBackend>&& backend){
+    _inputs = std::move(backend);
+    if(_isPlayer2) _inputs->setPurpose(BackendPurpose::PLAYER_2);
+    else _inputs->setPurpose(BackendPurpose::PLAYER_1);
+}
