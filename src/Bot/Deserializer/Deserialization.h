@@ -3,8 +3,8 @@
 #include <memory>
 #include <stdexcept>
 
-class XBehaviour;
-class FrameBehaviour;
+class XPosBackend;
+class FrameBackend;
 class Bot;
 
 namespace Deserializer
@@ -28,8 +28,8 @@ namespace Deserializer
         std::string _targetFile;
         
     public:
-        virtual void deserialize(XBehaviour* object)=0;
-        virtual void deserialize(FrameBehaviour* object)=0;
+        virtual void deserialize(XPosBackend* object)=0;
+        virtual void deserialize(FrameBackend* object)=0;
         virtual void deserialize(Bot* object)=0;
         
         void setFilename(const std::string& filename){_targetFile = filename;}
@@ -43,37 +43,37 @@ namespace Deserializer
 
     /*class DDHORV2 : public BotDeserializer{
     public:
-        void serialize(XBehaviour* object) override;
-        void serialize(FrameBehaviour* object) override;
-        void deserialize(XBehaviour* object) override;
-        void deserialize(FrameBehaviour* object) override;
+        void serialize(XPosBackend* object) override;
+        void serialize(FrameBackend* object) override;
+        void deserialize(XPosBackend* object) override;
+        void deserialize(FrameBackend* object) override;
     public:
         
     };
     
     class YBOT : public BotDeserializer{
     public:
-        void serialize(XBehaviour* object) override;
-        void serialize(FrameBehaviour* object) override;
-        void deserialize(XBehaviour* object) override;
-        void deserialize(FrameBehaviour* object) override;
+        void serialize(XPosBackend* object) override;
+        void serialize(FrameBackend* object) override;
+        void deserialize(XPosBackend* object) override;
+        void deserialize(FrameBackend* object) override;
 
     };
     
     class ZBOT : public BotDeserializer{
     public:
-        void serialize(XBehaviour* object) override;
-        void serialize(FrameBehaviour* object) override;
-        void deserialize(XBehaviour* object) override;
-        void deserialize(FrameBehaviour* object) override;
+        void serialize(XPosBackend* object) override;
+        void serialize(FrameBackend* object) override;
+        void deserialize(XPosBackend* object) override;
+        void deserialize(FrameBackend* object) override;
     };
     
     class TASBOT : public BotDeserializer{
     public:
-        void serialize(XBehaviour* object) override;
-        void serialize(FrameBehaviour* object) override;
-        void deserialize(XBehaviour* object) override;
-        void deserialize(FrameBehaviour* object) override;
+        void serialize(XPosBackend* object) override;
+        void serialize(FrameBackend* object) override;
+        void deserialize(XPosBackend* object) override;
+        void deserialize(FrameBackend* object) override;
     };*/
 } // namespace Deserializer
 
@@ -96,7 +96,7 @@ namespace Deserializer
 
 
 bool mock(){
-    BotBackend* object;
+    CommandExecuter* object;
     Deserializer::BotDeserializer* serdeMode=nullptr;
     
 

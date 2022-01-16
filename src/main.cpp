@@ -84,10 +84,10 @@ public:
 
 
 int main(int, char**) {
-    /*XBehaviour xposBot;
-    FrameBehaviour frameBot;*/
-    /*BotBackend* xposBot = new XBehaviour;
-    BotBackend* frameBot = new FrameBehaviour;
+    /*XPosBackend xposBot;
+    FrameBackend frameBot;*/
+    /*CommandBackend* xposBot = new XPosBackend;
+    CommandBackend* frameBot = new FrameBackend;
     Bot* bot = new Bot;
     Deserializer::BotDeserializer* deserializerObject = new Deserializer::Legacy;
     
@@ -102,8 +102,8 @@ int main(int, char**) {
     deserializerObject->setFilename("Macro.ddhor");
     xposBot->runDeserializer(deserializerObject);
     frameBot->runDeserializer(deserializerObject);*/
-    Bot bot;
+    /*Bot bot;
     bot.importMacro("v1test.ddhor");
-    bot.importMacro("v2test.ddhor");
+    bot.importMacro("v2test.ddhor");*/
     
 }

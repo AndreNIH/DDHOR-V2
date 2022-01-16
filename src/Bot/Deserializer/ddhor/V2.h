@@ -3,8 +3,8 @@
 #include <optional>
 #include <nlohmann/json.hpp>
 
-class XBehaviour;
-class FrameBehaviour;
+class XPosBackend;
+class FrameBackend;
 class Bot;
 
 namespace Deserializer{
@@ -14,8 +14,8 @@ namespace Deserializer{
         std::optional<nlohmann::json> _bufferedJSON;
         nlohmann::json& getBufferedJSON();
     public:
-        void deserialize(XBehaviour* object) override;
-        void deserialize(FrameBehaviour* object) override;
+        void deserialize(XPosBackend* object) override;
+        void deserialize(FrameBackend* object) override;
         void deserialize(Bot* object) override;
     };
     

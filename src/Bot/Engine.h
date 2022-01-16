@@ -1,5 +1,5 @@
 #pragma once
-#include "Behaviour/BotBehavior.h"
+#include "ExecLogic/CmdExecuterLogic.h"
 #include "Deserializer/Deserialization.h"
 #include "Deserializer/Deseriliazble.h"
 #include "Serializer/Serializble.h"
@@ -12,9 +12,9 @@
 #include <memory>
 
 
-class FakePlayer : private Deserializable, Serializable{
+/*class FakePlayer : private Deserializable, Serializable{
 private:
-    std::unique_ptr<BotBackend> _behaviour = nullptr;
+    std::unique_ptr<CommandBackend> _behaviour = nullptr;
     const bool _isP2;
 
 public:
@@ -31,7 +31,7 @@ public:
         return _behaviour->runSerializer(serializationObject);
     }
 
-    void setBackend(std::unique_ptr<BotBackend>&& backend){
+    void setBackend(std::unique_ptr<CommandBackend>&& backend){
         _behaviour = std::move(backend);
         if(_isP2) _behaviour->setPlayer2Logic();
     }
@@ -54,6 +54,8 @@ private:
 
     void runDeserializer(Deserializer::BotDeserializer* deserializaitionObject) override{
         deserializaitionObject->deserialize(this);
+        _player1.runDeserializer(deserializaitionObject);
+        _player2.runDeserializer(deserializaitionObject);
     }
 
     nlohmann::json runSerializer(Serializer::BotSerializer* serializationObject) override{
@@ -78,4 +80,4 @@ public:
     Bot() : _player1(false), _player2(true) {}
 
 
-};
+};*/

@@ -5,9 +5,8 @@
 #include <fmt/format.h>
 #include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
-#include "../Behaviour/BotBehavior.h"
-#include "../Behaviour/Actions/Actions.h"
-#include "../Engine.h"
+#include "../../ExecLogic/CmdExecuterLogic.h"
+
 
 
 namespace Deserializer
@@ -15,7 +14,7 @@ namespace Deserializer
     
     nlohmann::json& V2::getBufferedJSON() 
     {
-        if(!_bufferedJSON.has_value()){
+        /*if(!_bufferedJSON.has_value()){
             try{
                 std::ifstream file(this->getFilename());
                 if(!file.is_open()) throw DerError{getFilename() + " not found"};
@@ -26,15 +25,16 @@ namespace Deserializer
                 throw DerError(ex.what());
             }
         }
-        return _bufferedJSON.value();
+        return _bufferedJSON.value();*/
+        return nlohmann::json();
     }
 
     
     
     
-    void V2::deserialize(FrameBehaviour* object)
+    void V2::deserialize(FrameBackend* object)
     {
-        try{
+        /*try{
             auto deserializedObj = getBufferedJSON();
             auto player = object->hasPlayer2Logic()
                 ? deserializedObj.at("inputsP1")
@@ -48,12 +48,12 @@ namespace Deserializer
 
         }catch(nlohmann::json::exception& ex){
             throw DerError(ex.what());
-        }
+        }*/
     }
     
-    void V2::deserialize(XBehaviour* object) 
+    void V2::deserialize(XPosBackend* object) 
     {
-        try{
+        /*try{
             auto deserializedObj = getBufferedJSON();
             auto player = object->hasPlayer2Logic()
                 ? deserializedObj.at("inputsP2")
@@ -67,12 +67,12 @@ namespace Deserializer
 
         }catch(nlohmann::json::exception& ex){
             throw DerError(ex.what());
-        }
+        }*/
     }
 
     void V2::deserialize(Bot* object)
     {
-        try{
+        /*try{
             auto deserializedObj = getBufferedJSON();
             object->setFPSValue(deserializedObj.at("fps"));
             if(deserializedObj.at("macro") == "x-position") object->setMode(BotMode::kXPos);
@@ -80,7 +80,7 @@ namespace Deserializer
             else throw DerError{"Invalid argument passed at 'mode' field: {} is not a valid argument"};
         }catch(nlohmann::json::exception& ex){
             throw DerError(ex.what());
-        }
+        }*/
     }
 }
 

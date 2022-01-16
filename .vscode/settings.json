@@ -80,5 +80,5 @@
         "fstream": "cpp",
         "set": "cpp"
     },
-    "discord.enabled": true
+    "discord.enabled": false
 }
