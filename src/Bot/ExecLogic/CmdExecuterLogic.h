@@ -4,7 +4,7 @@
 #include "../Serializer/Serializble.h"
 
 using PlayLayer = void;
-class Command; //fwd declare
+class BaseCommand; //fwd declare
 
 
 enum class BackendPurpose{
@@ -20,7 +20,7 @@ private:
     BackendPurpose _purpose = BackendPurpose::UNSPECIFIED;
 
 public:
-    virtual void insertCommand(Command* command)=0;
+    virtual void insertCommand(std::unique_ptr<BaseCommand>&& command)=0;
     virtual void rewindQueue()=0;
     virtual void reset()=0;
     virtual void perform();

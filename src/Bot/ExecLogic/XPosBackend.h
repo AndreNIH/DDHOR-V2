@@ -3,7 +3,7 @@
 
 class XPosBackend : public CommandBackend{
 public:
-    void insertCommand(Command* command) override;
+    void insertCommand(std::unique_ptr<BaseCommand>&& command) override;
     void rewindQueue() override;
     void reset() override{}
     

@@ -81,8 +81,6 @@ public:
 */
 
 
-
-
 int main(int, char**) {
     /*XPosBackend xposBot;
     FrameBackend frameBot;*/

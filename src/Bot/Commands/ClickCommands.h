@@ -18,7 +18,7 @@ public:
         _actor->holdClick();
     }
 
-    void setCommand(std::unique_ptr<PlayerInput>& command){
+    DoPress(std::unique_ptr<PlayerInput>& command){
         _actor = std::move(command);
     }
 };
@@ -33,7 +33,7 @@ public:
         _actor->releaseClick();
     }
 
-    void setCommand(std::unique_ptr<PlayerInput>& command){
+    DoPress(std::unique_ptr<PlayerInput>& command){
         _actor = std::move(command);
     }
 };
