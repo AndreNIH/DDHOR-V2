@@ -1,7 +1,8 @@
 #include "Engine.h"
 #include <spdlog/spdlog.h>
 #include "Deductor/DerDeductor.h"
-
+#include "ExecLogic/FrameBackend.h"
+#include "ExecLogic/XPosBackend.h"
 /*void Bot::importMacro(const std::string& inFilename){
     spdlog::info("Attempting to import macro file: {}", inFilename);
     auto deserializer = getCompatibleDeserializer(inFilename);
@@ -61,4 +62,39 @@ void BotPlayer::setCommandBackend(std::unique_ptr<CommandBackend>&& backend){
     _inputs = std::move(backend);
     if(_isPlayer2) _inputs->setPurpose(BackendPurpose::PLAYER_2);
     else _inputs->setPurpose(BackendPurpose::PLAYER_1);
+}
+
+void Bot::setBotBackend(BackendType backendId){
+    std::unique_ptr<CommandBackend> backend = nullptr;
+    if(backendId == BackendType::FRAMES) backend = std::make_unique<FrameBackend>();
+    else if(backendId == BackendType::XPOS) backend = std::make_unique<XPosBackend>();
+    else if(backendId == BackendType::PHYSICS) throw std::runtime_error{"not implemented"};
+    _player1.setCommandBackend(std::move(backend));
+    _player2.setCommandBackend(std::move(backend));
+    //_comman.setCommandBackend() //to-be implemented    
+}
+
+void Bot::insertClick(TargetPlayer player){
+    BotPlayer& target = player == TargetPlayer::PLAYER_1
+        ? _player1
+        : _player2;
+    target.insertClick();   
+}
+
+void Bot::insertRelease(TargetPlayer player){
+    BotPlayer& target = player == TargetPlayer::PLAYER_1
+        ? _player1
+        : _player2;
+    target.insertRelease();   
+}
+
+void Bot::rewind(){
+    _player1.rewindActions();
+    _player2.rewindActions();
+}
+
+void Bot::update(){
+    //_player1.
+    //_player2.
+    //
 }

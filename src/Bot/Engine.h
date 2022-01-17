@@ -54,7 +54,7 @@ class Bot{
     BotPlayer _player2;
     
 public:
-    void setBotBackend(BackendType backend);
+    void setBotBackend(BackendType backendId);
     void insertClick(TargetPlayer player);
     void insertRelease(TargetPlayer player);
     void rewind();
