@@ -23,7 +23,7 @@ public:
     virtual void insertCommand(std::unique_ptr<BaseCommand>&& command)=0;
     virtual void rewindQueue()=0;
     virtual void reset()=0;
-    virtual void perform();
+    virtual void perform()=0;
 
     void setPurpose(BackendPurpose purpose){_purpose = purpose;}
     BackendPurpose getPurpose() const{return _purpose;}
