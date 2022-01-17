@@ -13,6 +13,17 @@
 
 #include "Commands/ClickCommands.h"
 
+enum class BackendType{
+    XPOS,
+    FRAMES,
+    PHYSICS
+};
+
+enum class TargetPlayer{
+    PLAYER_1,
+    PLAYER_2
+};
+
 class BotPlayer{
     
     std::unique_ptr<CommandBackend> _inputs = nullptr;
@@ -28,11 +39,26 @@ public:
     BotPlayer(bool isP2) : _isPlayer2(isP2){}
 };
 
+class CommandExecuter{
+private:
+    std::unique_ptr<CommandBackend> _commands = nullptr;
+
+public:
+    void setCommandsBackend(std::unique_ptr<CommandBackend>&& backend);
+    void insertCommand(std::unique_ptr<BaseCommand>&& command);
+    void rewindCommands();
+};
+
 class Bot{
     BotPlayer _player1;
     BotPlayer _player2;
     
 public:
+    void setBotBackend(BackendType backend);
+    void insertClick(TargetPlayer player);
+    void insertRelease(TargetPlayer player);
+    void rewind();
+    void update();
     Bot() : _player1(false), _player2(true){}
-    std::pair<BotPlayer&, BotPlayer&> getPlayers();
+    
 };
