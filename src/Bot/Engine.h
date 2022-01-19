@@ -1,10 +1,10 @@
 #pragma once
 #include "ExecLogic/CmdExecuterLogic.h"
+#include "Deserializer/Accessable.h"
 #include "Deserializer/Deserialization.h"
 #include "Deserializer/Deseriliazble.h"
 #include "Serializer/Serializble.h"
 #include "Serializer/Serialization.h"
-
 
 #include <nlohmann/json.hpp>
 #include <string>
@@ -30,7 +30,8 @@ class BotPlayer{
     const bool _isPlayer2;
 
     std::unique_ptr<PlayerInput>generateInputObject();
-
+    EXTEND_DESERIALIZER_ACCESS;
+    
 public:
     void insertClick();
     void insertRelease();
@@ -52,7 +53,7 @@ public:
 class Bot{
     BotPlayer _player1;
     BotPlayer _player2;
-    
+    EXTEND_DESERIALIZER_ACCESS;
 public:
     void setBotBackend(BackendType backendId);
     void insertClick(TargetPlayer player);
