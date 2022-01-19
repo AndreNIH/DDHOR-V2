@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
+#include "../Commands/BaseCommand.h"
 #include "../Deserializer/Deseriliazble.h"
 #include "../Serializer/Serializble.h"
-
 using PlayLayer = void;
 class BaseCommand; //fwd declare
 
@@ -23,7 +23,7 @@ public:
     virtual void insertCommand(std::unique_ptr<BaseCommand>&& command)=0;
     virtual void rewindQueue()=0;
     virtual void reset()=0;
-    virtual void perform()=0;
+    virtual void executeCommands()=0;
 
     void setPurpose(BackendPurpose purpose){_purpose = purpose;}
     BackendPurpose getPurpose() const{return _purpose;}
