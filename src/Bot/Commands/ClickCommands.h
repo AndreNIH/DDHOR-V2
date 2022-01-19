@@ -33,7 +33,7 @@ public:
         _actor->releaseClick();
     }
 
-    DoPress(std::unique_ptr<PlayerInput>& command){
+    DoRelease(std::unique_ptr<PlayerInput>& command){
         _actor = std::move(command);
     }
 };
