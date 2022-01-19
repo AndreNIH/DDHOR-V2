@@ -13,14 +13,9 @@ private:
     std::unique_ptr<PlayerInput> _actor;
 
 public:
-    void execute() override{
-        assert(_actor != nullptr, "Comamnd target cannot be nullptr");
-        _actor->holdClick();
-    }
-
-    DoPress(std::unique_ptr<PlayerInput>& command){
-        _actor = std::move(command);
-    }
+    void execute() override;
+    DoPress(std::unique_ptr<PlayerInput>& command);
+    CommandID type() const override;
 };
 
 class DoRelease : public BaseCommand{
@@ -28,12 +23,7 @@ private:
     std::unique_ptr<PlayerInput> _actor;
 
 public:
-    void execute() override{
-        assert(_actor != nullptr, "Comamnd target cannot be nullptr");
-        _actor->releaseClick();
-    }
-
-    DoRelease(std::unique_ptr<PlayerInput>& command){
-        _actor = std::move(command);
-    }
+    void execute() override;
+    DoRelease(std::unique_ptr<PlayerInput>& command);
+    CommandID type() const override;
 };
