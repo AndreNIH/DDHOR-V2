@@ -8,13 +8,11 @@ project(DDHORV3 VERSION 0.1.0)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 
-enable_testing()
 
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
+
 #add_executable(DDHORV3 ${SRC_FILES})
 add_library(DDHORV3 SHARED ${SRC_FILES})
-
-#add_subdirectory(tests)
 add_subdirectory(deps/cocos-headers)
 add_subdirectory(deps/mat-dash)
 
@@ -23,3 +21,9 @@ target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt-header-only)
 target_link_libraries(${PROJECT_NAME} PUBLIC cocos2d)
 target_link_libraries(${PROJECT_NAME} PUBLIC matdash)
 
+set(GD_HEADERS
+    ${CMAKE_CURRENT_LIST_DIR}/deps/gd
+    ${CMAKE_CURRENT_LIST_DIR}/deps/gd/include
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${GD_HEADERS})
