@@ -100,8 +100,8 @@ int main(int, char**) {
     deserializerObject->setFilename("Macro.ddhor");
     xposBot->runDeserializer(deserializerObject);
     frameBot->runDeserializer(deserializerObject);*/
-    /*Bot bot;
+    Bot bot;
     bot.importMacro("v1test.ddhor");
-    bot.importMacro("v2test.ddhor");*/
+    bot.importMacro("v2test.ddhor");
     
 }
