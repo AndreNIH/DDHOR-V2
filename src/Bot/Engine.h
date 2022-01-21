@@ -59,10 +59,11 @@ public:
     void insertClick(TargetPlayer player);
     void insertRelease(TargetPlayer player);
     void setFPS(float fps){};
-    
     void rewind();
     void update();
     
+    bool importMacro(const std::string& inFilename);
+    bool exportMacro(const std::string& outFilename);
     Bot() : _player1(false), _player2(true){}
     
 };

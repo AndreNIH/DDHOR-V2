@@ -94,7 +94,29 @@ void Bot::rewind(){
 }
 
 void Bot::update(){
-    //_player1.
-    //_player2.
-    //
+
 }
+
+bool Bot::importMacro(const std::string& inFilename){
+    auto deserializer = getCompatibleDeserializer(inFilename);
+    if(deserializer == nullptr){
+        spdlog::warn("No suitable deserializer could be found for {}", inFilename);
+        return false;
+    }
+
+    try{
+        deserializer->deserialize(this);
+        return true;
+    }catch(const Deserializer::DerError& ex){
+        spdlog::error("Exception caught. {} at line {}.\nDetails: {}", __FILE__, __LINE__, ex.what());
+        return false;
+    }
+    
+
+}
+
+bool Bot::exportMacro(const std::string& outFilename){
+    return false;
+}
+
+
