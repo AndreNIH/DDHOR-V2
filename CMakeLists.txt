@@ -15,11 +15,13 @@ file(GLOB_RECURSE SRC_FILES src/*.cpp)
 add_library(DDHORV3 SHARED ${SRC_FILES})
 add_subdirectory(deps/cocos-headers)
 add_subdirectory(deps/mat-dash)
+add_subdirectory(deps/minhook)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC nlohmann_json nlohmann_json::nlohmann_json)
 target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt-header-only)
 target_link_libraries(${PROJECT_NAME} PUBLIC cocos2d)
 target_link_libraries(${PROJECT_NAME} PUBLIC matdash)
+target_link_libraries(${PROJECT_NAME} PUBLIC minhook)
 
 set(GD_HEADERS
     ${CMAKE_CURRENT_LIST_DIR}/deps/gd
