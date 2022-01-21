@@ -10,3 +10,6 @@
 [submodule "deps/gd"]
 	path = deps/gd
 	url = https://github.com/AndreNIH/gd.h
+[submodule "deps/minhook"]
+	path = deps/minhook
+	url = https://github.com/HJfod/minhook.git
