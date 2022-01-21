@@ -24,14 +24,14 @@ T binaryRead(std::ifstream& ifs){
 
 namespace Deserializer
 {
-    void V1::deserialize(FrameBehaviour* object)
+    void V1::deserialize(FrameBackend* object)
     {
         throw UnsupportedConversion{"V1 DDHOR Files do not support frame based behaviour"};
     }
     
-    void V1::deserialize(XBehaviour* object) 
+    void V1::deserialize(XPosBackend* object) 
     {
-        std::ifstream file(getFilename(), std::ios::binary);
+        /*std::ifstream file(getFilename(), std::ios::binary);
         if(!file.is_open()) throw DerError{getFilename() + " not found"};
         DDHORHeader header = binaryRead<DDHORHeader>(file);
         
@@ -44,17 +44,17 @@ namespace Deserializer
             float xpos    = binaryRead<float>(file);
             Action action = binaryRead<Action>(file);
             object->insertInput({xpos, action});
-        }
+        }*/
         
     }
 
     void V1::deserialize(Bot* object){
-        std::ifstream file(getFilename(), std::ios::binary);
+        /*std::ifstream file(getFilename(), std::ios::binary);
         if(!file.is_open()) throw DerError{getFilename() + " not found"};
         DDHORHeader header;
         file.read(reinterpret_cast<char*>(&header), sizeof(DDHORHeader));
         object->setFPSValue(header.fps);
-        object->setMode(BotMode::kXPos);
+        object->setMode(BotMode::kXPos);*/
     }
 
     

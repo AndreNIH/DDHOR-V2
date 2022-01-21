@@ -81,13 +81,11 @@ public:
 */
 
 
-
-
 int main(int, char**) {
-    /*XBehaviour xposBot;
-    FrameBehaviour frameBot;*/
-    /*BotBackend* xposBot = new XBehaviour;
-    BotBackend* frameBot = new FrameBehaviour;
+    /*XPosBackend xposBot;
+    FrameBackend frameBot;*/
+    /*CommandBackend* xposBot = new XPosBackend;
+    CommandBackend* frameBot = new FrameBackend;
     Bot* bot = new Bot;
     Deserializer::BotDeserializer* deserializerObject = new Deserializer::Legacy;
     

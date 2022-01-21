@@ -1,13 +1,30 @@
 #include "V2.h"
-#include <typeinfo>
-#include <iostream>
 #include <fstream>
 #include <fmt/format.h>
 #include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
-#include "../Behaviour/BotBehavior.h"
-#include "../Behaviour/Actions/Actions.h"
-#include "../Engine.h"
+#include "jsonSpecialization.h"
+#include "../../ExecLogic/CmdExecuterLogic.h"
+#include "../../ExecLogic/XPosBackend.h"
+#include "../../ExecLogic/FrameBackend.h"
+#include "../../Engine.h"
+#include "../../Commands/ClickCommands.h"
+
+
+std::unique_ptr<BaseCommand> createPlayerInputCommand(const std::string& id, bool p2){
+    std::unique_ptr<BaseCommand> command = nullptr;
+    auto delegate = std::make_unique<PlayerInput>();
+    if(p2) delegate->setPlayer2();
+    if(id == "PUSH"){
+        command = std::make_unique<DoPress>();
+        reinterpret_cast<DoPress*>(command.get())->bind(delegate);
+    }
+    else if(id == "RELEASE");{
+        command = std::make_unique<DoRelease>();
+        reinterpret_cast<DoPress*>(command.get())->bind(delegate);
+    }
+    return command;
+}
 
 
 namespace Deserializer
@@ -32,53 +49,55 @@ namespace Deserializer
     
     
     
-    void V2::deserialize(FrameBehaviour* object)
+    void V2::deserialize(FrameBackend* target)
     {
-        try{
-            auto deserializedObj = getBufferedJSON();
-            auto player = object->hasPlayer2Logic()
-                ? deserializedObj.at("inputsP1")
-                : deserializedObj.at("inputsP2");
-            
-            for(auto& input :player){
-                unsigned int pos = input.at("position");
-                Action action = ActionTools::strAsAction(input.at("action"));
-                object->insertInput({pos,action});
-            }
-
-        }catch(nlohmann::json::exception& ex){
-            throw DerError(ex.what());
+        nlohmann::json data = getBufferedJSON();
+        const bool isP2 = target->getPurpose() == BackendPurpose::PLAYER_2;
+        nlohmann::json player = isP2 ? data.at("inputsP2") : data.at("inputsP1");
+        for(auto& input : player){
+            const int pos = input.at("position");
+            const std::string action = input.at("action");
+            auto delegate = std::make_unique<PlayerInput>();
+            if(isP2) delegate->setPlayer2();
+            std::unique_ptr<BaseCommand> command = createPlayerInputCommand(action, isP2);
+            if(command == nullptr) throw DerError{fmt::format("Unrecognized command: {}", action)};
+            target->_posncom.push_back({pos, std::move(command)});
         }
     }
     
-    void V2::deserialize(XBehaviour* object) 
+    void V2::deserialize(XPosBackend* target) 
     {
-        try{
-            auto deserializedObj = getBufferedJSON();
-            auto player = object->hasPlayer2Logic()
-                ? deserializedObj.at("inputsP2")
-                : deserializedObj.at("inputsP1");
-            
-            for(auto& input : player){
-                float pos = input.at("position");
-                Action action = ActionTools::strAsAction(input.at("action"));
-                object->insertInput({pos,action});
-            }
-
-        }catch(nlohmann::json::exception& ex){
-            throw DerError(ex.what());
+        nlohmann::json data = getBufferedJSON();
+        const bool isP2 = target->getPurpose() == BackendPurpose::PLAYER_2;
+        nlohmann::json player = isP2 ? data.at("inputsP2") : data.at("inputsP1");
+        for(auto& input : player){
+            const float pos = input.at("position");
+            const std::string action = input.at("action");
+            auto delegate = std::make_unique<PlayerInput>();
+            if(isP2) delegate->setPlayer2();
+            std::unique_ptr<BaseCommand> command = createPlayerInputCommand(action, isP2);
+            if(command == nullptr) throw DerError{fmt::format("Unrecognized command: {}", action)};
+            target->_posAndCommandsContainer.push_back({pos, std::move(command)});
         }
-    }
+    }    
 
-    void V2::deserialize(Bot* object)
-    {
+
+    void V2::deserialize(CmdFrameBackend* target){
+        throw DerError{"Not yet implemented, flag1"};
+    }
+   
+    void V2::deserialize(CmdXPosBackend* target){
+        throw DerError{"Not yet implemented, flag2"};
+    }
+    
+    void V2::deserialize(Bot* target){
         try{
-            auto deserializedObj = getBufferedJSON();
-            object->setFPSValue(deserializedObj.at("fps"));
-            if(deserializedObj.at("macro") == "x-position") object->setMode(BotMode::kXPos);
-            else if(deserializedObj.at("macro") == "frames") object->setMode(BotMode::kFrames);
-            else throw DerError{"Invalid argument passed at 'mode' field: {} is not a valid argument"};
-        }catch(nlohmann::json::exception& ex){
+            auto data = getBufferedJSON();
+            target->setFPS(data.at("fps"));
+            target->setBotBackend(data.at("macro"));
+            target->_player1._inputs->runDeserializer(this);
+            target->_player2._inputs->runDeserializer(this);
+        }catch(const nlohmann::json::exception& ex){
             throw DerError(ex.what());
         }
     }

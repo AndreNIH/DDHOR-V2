@@ -1,15 +1,15 @@
 #pragma once
 #include "../Deserialization.h"
 
-class XBehaviour;
-class FrameBehaviour;
+class XPosBackend;
+class FrameBackend;
 class Bot;
 
 namespace Deserializer{
     class V1 : public BotDeserializer{
     public:
-        void deserialize(XBehaviour* object) override;
-        void deserialize(FrameBehaviour* object) override;
+        void deserialize(XPosBackend* object) override;
+        void deserialize(FrameBackend* object) override;
         void deserialize(Bot* object) override;
     };
 
