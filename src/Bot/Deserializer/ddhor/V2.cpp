@@ -4,9 +4,9 @@
 #include <nlohmann/json.hpp>
 #include <spdlog/spdlog.h>
 #include "jsonSpecialization.h"
-#include "../../ExecLogic/CmdExecuterLogic.h"
-#include "../../ExecLogic/XPosBackend.h"
-#include "../../ExecLogic/FrameBackend.h"
+#include "../../Backend/CmdExecuterLogic.h"
+#include "../../Backend/XPosBackend.h"
+#include "../../Backend/FrameBackend.h"
 #include "../../Engine.h"
 #include "../../Commands/ClickCommands.h"
 
@@ -95,8 +95,8 @@ namespace Deserializer
             auto data = getBufferedJSON();
             target->setFPS(data.at("fps"));
             target->setBotBackend(data.at("macro"));
-            target->_player1._inputs->runDeserializer(this);
-            target->_player2._inputs->runDeserializer(this);
+            target->_player1._backend->runDeserializer(this);
+            target->_player2._backend->runDeserializer(this);
         }catch(const nlohmann::json::exception& ex){
             throw DerError(ex.what());
         }

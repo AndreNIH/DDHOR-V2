@@ -1,5 +1,5 @@
 #pragma once
-#include "ExecLogic/CmdExecuterLogic.h"
+#include "Backend/CmdExecuterLogic.h"
 #include "Deserializer/Accessable.h"
 #include "Deserializer/Deserialization.h"
 #include "Deserializer/Deseriliazble.h"
@@ -26,12 +26,13 @@ enum class TargetPlayer{
 
 class BotPlayer{
     
-    std::unique_ptr<CommandBackend> _inputs = nullptr;
+    std::unique_ptr<CommandBackend> _backend = nullptr;
     const bool _isPlayer2;
 
     std::unique_ptr<PlayerInput>generateInputObject();
-    EXTEND_DESERIALIZER_ACCESS;
+    void verifyPtrSafety();
 
+    EXTEND_DESERIALIZER_ACCESS;
 public:
     void insertClick();
     void insertRelease();
