@@ -14,7 +14,10 @@ file(GLOB_RECURSE SRC_FILES src/*.cpp)
 #add_executable(DDHORV3 ${SRC_FILES})
 add_library(DDHORV3 SHARED ${SRC_FILES})
 
+#add_subdirectory(tests)
+add_subdirectory(deps/cocos-headers)
+
 target_link_libraries(${PROJECT_NAME} PUBLIC nlohmann_json nlohmann_json::nlohmann_json)
 target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt-header-only)
+target_link_libraries(${PROJECT_NAME} PUBLIC cocos2d)
 
-#add_subdirectory(tests)
