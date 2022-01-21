@@ -7,3 +7,6 @@
 [submodule "deps/mat-dash"]
 	path = deps/mat-dash
 	url = https://github.com/AndreNIH/mat-dash
+[submodule "deps/gd"]
+	path = deps/gd
+	url = https://github.com/AndreNIH/gd.h
