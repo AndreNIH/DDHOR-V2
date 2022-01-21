@@ -1,3 +1,6 @@
 [submodule "deps/vcpkg"]
 	path = deps/vcpkg
 	url = https://github.com/Microsoft/vcpkg.git
+[submodule "deps/cocos-headers"]
+	path = deps/cocos-headers
+	url = https://github.com/HJfod/cocos-headers/
