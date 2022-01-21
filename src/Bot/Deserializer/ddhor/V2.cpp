@@ -56,7 +56,7 @@ namespace Deserializer
         nlohmann::json player = isP2 ? data.at("inputsP2") : data.at("inputsP1");
         for(auto& input : player){
             const int pos = input.at("position");
-            const std::string action = data.at("action");
+            const std::string action = input.at("action");
             auto delegate = std::make_unique<PlayerInput>();
             if(isP2) delegate->setPlayer2();
             std::unique_ptr<BaseCommand> command = createPlayerInputCommand(action, isP2);
@@ -72,7 +72,7 @@ namespace Deserializer
         nlohmann::json player = isP2 ? data.at("inputsP2") : data.at("inputsP1");
         for(auto& input : player){
             const float pos = input.at("position");
-            const std::string action = data.at("action");
+            const std::string action = input.at("action");
             auto delegate = std::make_unique<PlayerInput>();
             if(isP2) delegate->setPlayer2();
             std::unique_ptr<BaseCommand> command = createPlayerInputCommand(action, isP2);
