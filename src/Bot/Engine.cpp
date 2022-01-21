@@ -38,6 +38,13 @@ void Bot::setMode(BotMode mode){
     }
 }*/
 
+void BotPlayer::verifyPtrSafety(){
+    if(_backend == nullptr){
+        const std::string msg = "Attempted to access nulled backend object";
+        throw std::runtime_error{msg};
+    }
+}
+
 std::unique_ptr<PlayerInput> BotPlayer::generateInputObject(){
     auto inputObject = std::make_unique<PlayerInput>();
     if(_isPlayer2) inputObject->setPlayer2();
@@ -45,23 +52,26 @@ std::unique_ptr<PlayerInput> BotPlayer::generateInputObject(){
 }
 
 void BotPlayer::insertClick(){
+    verifyPtrSafety();
     auto pushCommand = std::make_unique<DoPress>(generateInputObject());
-    _inputs->insertCommand(std::move(pushCommand));
+    _backend->insertCommand(std::move(pushCommand));
 }
 
 void BotPlayer::insertRelease(){
+    verifyPtrSafety();
     auto releaseCommand = std::make_unique<DoPress>(generateInputObject());
-    _inputs->insertCommand(std::move(releaseCommand));
+    _backend->insertCommand(std::move(releaseCommand));
 }
 
 void BotPlayer::rewindActions(){
-    _inputs->rewindQueue();
+    verifyPtrSafety();
+    _backend->rewindQueue();
 }
 
 void BotPlayer::setCommandBackend(std::unique_ptr<CommandBackend>&& backend){
-    _inputs = std::move(backend);
-    if(_isPlayer2) _inputs->setPurpose(BackendPurpose::PLAYER_2);
-    else _inputs->setPurpose(BackendPurpose::PLAYER_1);
+    _backend = std::move(backend);
+    if(_isPlayer2) _backend->setPurpose(BackendPurpose::PLAYER_2);
+    else _backend->setPurpose(BackendPurpose::PLAYER_1);
 }
 
 void Bot::setBotBackend(BackendType backendId){
@@ -94,7 +104,7 @@ void Bot::rewind(){
 }
 
 void Bot::update(){
-
+    
 }
 
 bool Bot::importMacro(const std::string& inFilename){
