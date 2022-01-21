@@ -11,8 +11,8 @@ find_package(fmt CONFIG REQUIRED)
 enable_testing()
 
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
-add_executable(DDHORV3 ${SRC_FILES})
-#add_library(DDHORV3 STATIC ${SRC_FILES})
+#add_executable(DDHORV3 ${SRC_FILES})
+add_library(DDHORV3 SHARED ${SRC_FILES})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC nlohmann_json nlohmann_json::nlohmann_json)
 target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt-header-only)
