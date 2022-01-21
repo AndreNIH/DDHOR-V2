@@ -2,6 +2,8 @@
 #include "BaseCommand.h"
 #include <cassert>
 class PlayerInput{
+private:
+    bool _isP2=false;
 public:
         void holdClick();
         void releaseClick();

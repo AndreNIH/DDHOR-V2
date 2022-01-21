@@ -1,17 +1,20 @@
 #include "ClickCommands.h"
+#include <gd.h>
 //=======================================
 //  PlayerInput
 //=======================================
 void PlayerInput::holdClick(){
-
+    const bool flip = gd::GameManager::sharedState()->getGameVariable("0010");
+    gd::PlayLayer::get()->pushButton(0, (!_isP2) ^ flip);
 }
 
 void PlayerInput::releaseClick(){
-
+    const bool flip = gd::GameManager::sharedState()->getGameVariable("0010");
+    gd::PlayLayer::get()->releaseButton(0, (!_isP2) ^ flip);
 }
 
 void PlayerInput::setPlayer2(){
-
+    _isP2 = true;
 }
 
 //=======================================
