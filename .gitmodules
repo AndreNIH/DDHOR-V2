@@ -4,3 +4,6 @@
 [submodule "deps/cocos-headers"]
 	path = deps/cocos-headers
 	url = https://github.com/HJfod/cocos-headers/
+[submodule "deps/mat-dash"]
+	path = deps/mat-dash
+	url = https://github.com/AndreNIH/mat-dash
