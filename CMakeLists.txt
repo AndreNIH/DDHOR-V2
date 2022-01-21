@@ -16,8 +16,10 @@ add_library(DDHORV3 SHARED ${SRC_FILES})
 
 #add_subdirectory(tests)
 add_subdirectory(deps/cocos-headers)
+add_subdirectory(deps/mat-dash)
 
 target_link_libraries(${PROJECT_NAME} PUBLIC nlohmann_json nlohmann_json::nlohmann_json)
 target_link_libraries(${PROJECT_NAME} PUBLIC fmt::fmt-header-only)
 target_link_libraries(${PROJECT_NAME} PUBLIC cocos2d)
+target_link_libraries(${PROJECT_NAME} PUBLIC matdash)
 
