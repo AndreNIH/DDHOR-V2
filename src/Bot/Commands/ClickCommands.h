@@ -14,8 +14,10 @@ private:
 
 public:
     void execute() override;
-    DoPress(std::unique_ptr<PlayerInput>& command);
+    void bind(std::unique_ptr<PlayerInput>& command);
     CommandID type() const override;
+    DoPress(std::unique_ptr<PlayerInput>& command);
+    DoPress() = default;
 };
 
 class DoRelease : public BaseCommand{
@@ -24,6 +26,8 @@ private:
 
 public:
     void execute() override;
-    DoRelease(std::unique_ptr<PlayerInput>& command);
+    void bind(std::unique_ptr<PlayerInput>& command);
     CommandID type() const override;
+    DoRelease() = default;
+    DoRelease(std::unique_ptr<PlayerInput>& command);
 };

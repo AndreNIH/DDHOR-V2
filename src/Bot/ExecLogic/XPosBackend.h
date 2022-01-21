@@ -13,7 +13,7 @@ private:
 public:
     void insertCommand(std::unique_ptr<BaseCommand>&& command) override;
     void rewindQueue() override;
-    void reset() override{}
+    void reset() override;
     void executeCommands() override;
 
     nlohmann::json runSerializer(Serializer::BotSerializer* serializaitionObject) override;

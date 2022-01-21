@@ -5,6 +5,8 @@
 
 class XPosBackend;
 class FrameBackend;
+class CmdXPosBackend;
+class CmdFrameBackend;
 class Bot;
 
 namespace Deserializer
@@ -32,6 +34,9 @@ namespace Deserializer
         virtual void deserialize(FrameBackend* object)=0;
         virtual void deserialize(Bot* object)=0;
         
+        //Command Specialzations
+        virtual void deserialize(CmdXPosBackend* object);
+        virtual void deserialize(CmdFrameBackend* object);
         void setFilename(const std::string& filename){_targetFile = filename;}
         std::string getFilename() const{return _targetFile;}
 

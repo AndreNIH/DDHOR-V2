@@ -16,6 +16,8 @@ namespace Deserializer{
     public:
         void deserialize(XPosBackend* object) override;
         void deserialize(FrameBackend* object) override;
+        void deserialize(CmdXPosBackend* target) override;
+        void deserialize(CmdFrameBackend* object) override;
         void deserialize(Bot* object) override;
     };
     

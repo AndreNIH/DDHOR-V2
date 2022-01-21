@@ -1,5 +1,7 @@
 #include "XPosBackend.h"
 #include <algorithm>
+#include "../Serializer/Serialization.h"
+#include "../Deserializer/Deserialization.h"
 
 void XPosBackend::insertCommand(std::unique_ptr<BaseCommand>&& command) {
     float xpos=0; //code to get it from PlayerObject here
@@ -26,4 +28,12 @@ void XPosBackend::executeCommands() {
     if(_posAndCommandsContainer[_index].first == xpos){
         _posAndCommandsContainer[_index].second->execute();
     }
+}
+
+nlohmann::json XPosBackend::runSerializer(Serializer::BotSerializer* serializaitionObject){
+    return serializaitionObject->serialize(this);
+}
+
+void XPosBackend::runDeserializer(Deserializer::BotDeserializer* deserializaitionObject){
+    deserializaitionObject->deserialize(this);
 }

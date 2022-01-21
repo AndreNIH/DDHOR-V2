@@ -31,7 +31,7 @@ class BotPlayer{
 
     std::unique_ptr<PlayerInput>generateInputObject();
     EXTEND_DESERIALIZER_ACCESS;
-    
+
 public:
     void insertClick();
     void insertRelease();
@@ -58,8 +58,11 @@ public:
     void setBotBackend(BackendType backendId);
     void insertClick(TargetPlayer player);
     void insertRelease(TargetPlayer player);
+    void setFPS(float fps){};
+    
     void rewind();
     void update();
+    
     Bot() : _player1(false), _player2(true){}
     
 };

@@ -26,8 +26,12 @@ CommandID DoPress::type() const{
     return CommandID::CLICK;
 }
 
-DoPress::DoPress(std::unique_ptr<PlayerInput>& command){
+void DoPress::bind(std::unique_ptr<PlayerInput>& command){
     _actor = std::move(command);
+}
+
+DoPress::DoPress(std::unique_ptr<PlayerInput>& command){
+    bind(command);
 }
 
 //=======================================
@@ -43,7 +47,11 @@ CommandID DoRelease::type() const{
 }
 
 
-DoRelease::DoRelease(std::unique_ptr<PlayerInput>& command){
+void DoRelease::bind(std::unique_ptr<PlayerInput>& command){
     _actor = std::move(command);
+}
+
+DoRelease::DoRelease(std::unique_ptr<PlayerInput>& command){
+    bind(command);
 }
 

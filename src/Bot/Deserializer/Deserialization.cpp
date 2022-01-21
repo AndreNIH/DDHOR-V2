@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include <functional>
 #include <spdlog/spdlog.h>
-
+#include <typeinfo>
 #include "ddhor/V1.h"
 #include "ddhor/V2.h"
 
@@ -29,4 +29,20 @@ namespace Deserializer{
            return nullptr;
        }
     }
+
+    void BotDeserializer::deserialize(CmdXPosBackend* object){
+        const auto msg = fmt::format("{} deserializer does not support {} objects", 
+            typeid(this).name(), 
+            typeid(object).name());
+        throw DerError{msg};
+    }
+
+    void BotDeserializer::deserialize(CmdFrameBackend* object){
+        const auto msg = fmt::format("{} deserializer does not support {} objects", 
+            typeid(this).name(), 
+            typeid(object).name());
+        throw DerError{msg};
+    }
+
+
 }
