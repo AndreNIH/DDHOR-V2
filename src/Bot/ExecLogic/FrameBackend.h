@@ -14,3 +14,10 @@ public:
     nlohmann::json runSerializer(Serializer::BotSerializer* serializaitionObject) override;
     void runDeserializer(Deserializer::BotDeserializer* deserializaitionObject) override;
 };
+
+class CmdFrameBackend : public FrameBackend{
+    EXTEND_DESERIALIZER_ACCESS;
+public:
+    nlohmann::json runSerializer(Serializer::BotSerializer* serializaitionObject) override;
+    void runDeserializer(Deserializer::BotDeserializer* deserializaitionObject) override;
+};

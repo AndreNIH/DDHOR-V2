@@ -19,3 +19,10 @@ public:
     nlohmann::json runSerializer(Serializer::BotSerializer* serializaitionObject) override;
     void runDeserializer(Deserializer::BotDeserializer* deserializaitionObject) override;
 };
+
+class CmdXPosBackend : public XPosBackend{
+    EXTEND_DESERIALIZER_ACCESS;
+public:
+    nlohmann::json runSerializer(Serializer::BotSerializer* serializaitionObject) override;
+    void runDeserializer(Deserializer::BotDeserializer* deserializaitionObject) override;
+};
