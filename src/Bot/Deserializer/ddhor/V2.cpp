@@ -51,8 +51,6 @@ namespace Deserializer
         for(auto& input : player){
             const int pos = input.at("position");
             const std::string action = input.at("action");
-            auto delegate = std::make_unique<PlayerInput>();
-            if(isP2) delegate->setPlayer2();
             std::unique_ptr<BaseCommand> command = createPlayerInputCommand(action, isP2);
             if(command == nullptr) throw DerError{fmt::format("Unrecognized command: {}", action)};
             target->_posncom.push_back({pos, std::move(command)});
@@ -67,8 +65,6 @@ namespace Deserializer
         for(auto& input : player){
             const float pos = input.at("position");
             const std::string action = input.at("action");
-            auto delegate = std::make_unique<PlayerInput>();
-            if(isP2) delegate->setPlayer2();
             std::unique_ptr<BaseCommand> command = createPlayerInputCommand(action, isP2);
             if(command == nullptr) throw DerError{fmt::format("Unrecognized command: {}", action)};
             target->_posncom.push_back({pos, std::move(command)});
