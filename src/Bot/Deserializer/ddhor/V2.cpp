@@ -13,16 +13,10 @@
 
 std::unique_ptr<BaseCommand> createPlayerInputCommand(const std::string& id, bool p2){
     std::unique_ptr<BaseCommand> command = nullptr;
-    auto delegate = std::make_unique<PlayerInput>();
-    if(p2) delegate->setPlayer2();
-    if(id == "PUSH"){
-        command = std::make_unique<DoPress>();
-        reinterpret_cast<DoPress*>(command.get())->bind(delegate);
-    }
-    else if(id == "RELEASE");{
-        command = std::make_unique<DoRelease>();
-        reinterpret_cast<DoPress*>(command.get())->bind(delegate);
-    }
+    auto actor = std::make_unique<PlayerInput>();
+    if(p2) actor->setPlayer2();
+    if(id == "PUSH") command = std::make_unique<DoPress>(actor);
+    else if(id == "RELEASE") command = std::make_unique<DoRelease>();
     return command;
 }
 
