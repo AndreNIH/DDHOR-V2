@@ -10,6 +10,10 @@ void FrameBackend::rewindQueue(){
     //implement later
 }
 
+void FrameBackend::rollbackQueue(){
+
+}
+
 void FrameBackend::reset(){
 
 }

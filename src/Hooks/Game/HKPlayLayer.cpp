@@ -3,22 +3,26 @@
 #include <matdash.hpp>
 #include <iostream>
 #include <spdlog/spdlog.h>
+#include "../../Bot/Engine.h"
 using namespace cocos2d;
-
+Bot bot;
 namespace Hook{
     bool PlayLayer::_init(gd::PlayLayer* _this, gd::GJGameLevel* gameLevel){
         spdlog::info("PlayLayer::init");
+        bot.importMacro("macro.ddhor");
         return orig<&PlayLayer::_init, Thiscall>(_this, gameLevel);
     }
 
     void PlayLayer::_update(gd::PlayLayer* _this, float dt){
-        spdlog::info("PlayLayer::update, dt={}", dt);
+        //spdlog::info("PlayLayer::update, dt={}", dt);
+        bot.update();
         return orig<&PlayLayer::_update, Thiscall>(_this, dt);
     }
 
     void PlayLayer::_resetLevel(gd::PlayLayer* _this){
         spdlog::info("PlayLayer::resetLevel");
-        return orig<&PlayLayer::_resetLevel, Thiscall>(_this);
+        orig<&PlayLayer::_resetLevel, Thiscall>(_this);
+        bot.rewind();
     }
 
     void PlayLayer::_levelComplete(gd::PlayLayer* _this){

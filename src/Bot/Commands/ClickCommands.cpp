@@ -1,5 +1,6 @@
 #include "ClickCommands.h"
 #include <gd.h>
+#include <spdlog/spdlog.h>
 //=======================================
 //  PlayerInput
 //=======================================
@@ -21,8 +22,9 @@ void PlayerInput::setPlayer2(){
 //  DoPress
 //=======================================
 void DoPress::execute(){
-    assert(_actor != nullptr, "Comamnd target cannot be nullptr");
-    _actor->holdClick();
+    spdlog::info("Executing DoPress::execute, Actor object at address");
+    if(_actor == nullptr) spdlog::error("Attempted to perform action with null actor");
+    else _actor->holdClick();
 }
 
 CommandID DoPress::type() const{
@@ -30,6 +32,7 @@ CommandID DoPress::type() const{
 }
 
 void DoPress::bind(std::unique_ptr<PlayerInput>& command){
+    spdlog::info("DoPress::bind, binding command PlayerInput, address={0:x}", (void*)command.get());
     _actor = std::move(command);
 }
 
@@ -41,8 +44,9 @@ DoPress::DoPress(std::unique_ptr<PlayerInput>& command){
 //  DoRelease
 //=======================================
 void DoRelease::execute(){
-    assert(_actor != nullptr, "Comamnd target cannot be nullptr");
-    _actor->releaseClick();
+    spdlog::info("Executing DoRelease::execute, Actor object at address");
+    if(_actor == nullptr) spdlog::error("Attempted to perform action with null actor");
+    else _actor->releaseClick();
 }
 
 CommandID DoRelease::type() const{
@@ -51,6 +55,7 @@ CommandID DoRelease::type() const{
 
 
 void DoRelease::bind(std::unique_ptr<PlayerInput>& command){
+    spdlog::info("DoRelease::bind, binding command PlayerInput, address={0:x}", (void*)command.get());
     _actor = std::move(command);
 }
 

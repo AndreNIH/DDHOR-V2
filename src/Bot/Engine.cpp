@@ -3,41 +3,8 @@
 #include "Deductor/DerDeductor.h"
 #include "Backend/FrameBackend.h"
 #include "Backend/XPosBackend.h"
-/*void Bot::importMacro(const std::string& inFilename){
-    spdlog::info("Attempting to import macro file: {}", inFilename);
-    auto deserializer = getCompatibleDeserializer(inFilename);
-    if(deserializer == nullptr){
-       //do nothing for the moment being
-       spdlog::warn("No deserializer was found");
-       return;
-    }
-    try{
-        this->runDeserializer(deserializer.get());
-    }catch(const Deserializer::DerError& ex){
-        spdlog::error(ex.what());
-    }
-
-}
-
-
-void Bot::exportMacro(const std::string& outFilename){
-    //auto ser = std::make_unique<Serializer::V2>();
-    //auto botJson = runSerializer(ser.get());
-    
-
-}
-
-
-void Bot::setMode(BotMode mode){
-    if(mode == BotMode::kFrames){
-        _player1.setBackend(std::make_unique<FrameBackend>());
-        _player2.setBackend(std::make_unique<FrameBackend>());
-    }else{
-        _player1.setBackend(std::make_unique<XPosBackend>());
-        _player2.setBackend(std::make_unique<XPosBackend>());
-    }
-}*/
-
+#include <spdlog/fmt/bin_to_hex.h>
+#include <algorithm>
 void BotPlayer::verifyPtrSafety(){
     if(_backend == nullptr){
         const std::string msg = "Attempted to access nulled backend object";
@@ -68,21 +35,37 @@ void BotPlayer::rewindActions(){
     _backend->rewindQueue();
 }
 
+void BotPlayer::rollbackActions(){
+    verifyPtrSafety();
+    _backend->rollbackQueue();
+}
+
+void BotPlayer::executeActions(){
+    verifyPtrSafety();
+    _backend->executeCommands();
+}
+
 void BotPlayer::setCommandBackend(std::unique_ptr<CommandBackend>&& backend){
+    spdlog::info("Setting BotPlayer command backend, addr={0:x}", (void*)backend.get());
     _backend = std::move(backend);
     if(_isPlayer2) _backend->setPurpose(BackendPurpose::PLAYER_2);
     else _backend->setPurpose(BackendPurpose::PLAYER_1);
 }
 
+#define ASSIGN_BACKEND(TARGET,TYPE) \
+std::generate(TARGET.begin(), TARGET.end(), [](){return std::make_unique<TYPE>();})
+
 void Bot::setBotBackend(BackendType backendId){
-    std::unique_ptr<CommandBackend> backend = nullptr;
-    if(backendId == BackendType::FRAMES) backend = std::make_unique<FrameBackend>();
-    else if(backendId == BackendType::XPOS) backend = std::make_unique<XPosBackend>();
-    else if(backendId == BackendType::PHYSICS) throw std::runtime_error{"not implemented"};
-    _player1.setCommandBackend(std::move(backend));
-    _player2.setCommandBackend(std::move(backend));
+    std::array<std::unique_ptr<CommandBackend>,2> backend = {nullptr};
+    if(backendId == BackendType::FRAMES) ASSIGN_BACKEND(backend, FrameBackend);
+    else if(backendId == BackendType::XPOS) ASSIGN_BACKEND(backend, XPosBackend);
+    else if(backendId == BackendType::FRAMES ) throw std::runtime_error{"not implemented"};    
+    _player1.setCommandBackend(std::move(backend[0]));
+    _player2.setCommandBackend(std::move(backend[1]));
     //_comman.setCommandBackend() //to-be implemented    
 }
+
+#undef ASSIGN_BACKEND
 
 void Bot::insertClick(TargetPlayer player){
     BotPlayer& target = player == TargetPlayer::PLAYER_1
@@ -103,8 +86,14 @@ void Bot::rewind(){
     _player2.rewindActions();
 }
 
+void Bot::rollback(){
+    _player1.rollbackActions();
+    _player2.rollbackActions();
+}
+
 void Bot::update(){
-    
+    _player1.executeActions();
+    _player2.executeActions();
 }
 
 bool Bot::importMacro(const std::string& inFilename){

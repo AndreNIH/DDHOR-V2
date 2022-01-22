@@ -37,6 +37,9 @@ public:
     void insertClick();
     void insertRelease();
     void rewindActions();
+    void rollbackActions();
+    void executeActions();
+    
     void setCommandBackend(std::unique_ptr<CommandBackend>&& backend);
     BotPlayer(bool isP2) : _isPlayer2(isP2){}
 };
@@ -61,6 +64,7 @@ public:
     void insertRelease(TargetPlayer player);
     void setFPS(float fps){};
     void rewind();
+    void rollback();
     void update();
     
     bool importMacro(const std::string& inFilename);

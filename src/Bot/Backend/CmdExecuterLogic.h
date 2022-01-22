@@ -22,6 +22,7 @@ private:
 public:
     virtual void insertCommand(std::unique_ptr<BaseCommand>&& command)=0;
     virtual void rewindQueue()=0;
+    virtual void rollbackQueue()=0;
     virtual void reset()=0;
     virtual void executeCommands()=0;
 
