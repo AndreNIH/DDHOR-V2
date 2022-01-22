@@ -7,7 +7,7 @@
 class XPosBackend : public CommandBackend{
 private:
     using PCPair = std::pair<float, std::unique_ptr<BaseCommand>>;
-    std::vector<PCPair> _posAndCommandsContainer;
+    std::vector<PCPair> _posncom; //Position & Command
     size_t _index;
     EXTEND_DESERIALIZER_ACCESS;
 public:

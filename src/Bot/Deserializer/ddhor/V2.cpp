@@ -77,7 +77,7 @@ namespace Deserializer
             if(isP2) delegate->setPlayer2();
             std::unique_ptr<BaseCommand> command = createPlayerInputCommand(action, isP2);
             if(command == nullptr) throw DerError{fmt::format("Unrecognized command: {}", action)};
-            target->_posAndCommandsContainer.push_back({pos, std::move(command)});
+            target->_posncom.push_back({pos, std::move(command)});
         }
     }    
 
