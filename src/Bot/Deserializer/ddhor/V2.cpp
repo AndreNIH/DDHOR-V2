@@ -16,7 +16,7 @@ std::unique_ptr<BaseCommand> createPlayerInputCommand(const std::string& id, boo
     auto actor = std::make_unique<PlayerInput>();
     if(p2) actor->setPlayer2();
     if(id == "PUSH") command = std::make_unique<DoPress>(actor);
-    else if(id == "RELEASE") command = std::make_unique<DoRelease>();
+    else if(id == "RELEASE") command = std::make_unique<DoRelease>(actor);
     return command;
 }
 
