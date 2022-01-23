@@ -28,8 +28,6 @@ class BotPlayer{
     
     std::unique_ptr<CommandBackend> _backend = nullptr;
     const bool _isPlayer2;
-
-    std::unique_ptr<PlayerInput>generateInputObject();
     void verifyPtrSafety();
 
     EXTEND_DESERIALIZER_ACCESS;

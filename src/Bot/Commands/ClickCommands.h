@@ -1,35 +1,22 @@
 #pragma once
 #include "BaseCommand.h"
-#include <cassert>
-class PlayerInput{
-private:
-    bool _isP2=false;
-public:
-        void holdClick();
-        void releaseClick();
-        void setPlayer2();
-};
 
 class DoPress : public BaseCommand{
 private:
-    std::unique_ptr<PlayerInput> _actor;
-
+    bool _isP2=false;
 public:
     void execute() override;
-    void bind(std::unique_ptr<PlayerInput>& command);
+    void setP2(bool p2);
     CommandID type() const override;
-    DoPress(std::unique_ptr<PlayerInput>& command);
-    DoPress() = default;
+    DoPress(bool p2);
 };
 
 class DoRelease : public BaseCommand{
 private:
-    std::unique_ptr<PlayerInput> _actor;
-
+    bool _isP2=false;
 public:
     void execute() override;
-    void bind(std::unique_ptr<PlayerInput>& command);
+    void setP2(bool p2);
     CommandID type() const override;
-    DoRelease() = default;
-    DoRelease(std::unique_ptr<PlayerInput>& command);
+    DoRelease(bool p2);
 };

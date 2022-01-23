@@ -12,21 +12,15 @@ void BotPlayer::verifyPtrSafety(){
     }
 }
 
-std::unique_ptr<PlayerInput> BotPlayer::generateInputObject(){
-    auto inputObject = std::make_unique<PlayerInput>();
-    if(_isPlayer2) inputObject->setPlayer2();
-    return inputObject;
-}
-
 void BotPlayer::insertClick(){
     verifyPtrSafety();
-    auto pushCommand = std::make_unique<DoPress>(generateInputObject());
+    auto pushCommand = std::make_unique<DoPress>(_isPlayer2);;
     _backend->insertCommand(std::move(pushCommand));
 }
 
 void BotPlayer::insertRelease(){
     verifyPtrSafety();
-    auto releaseCommand = std::make_unique<DoPress>(generateInputObject());
+    auto releaseCommand = std::make_unique<DoRelease>(_isPlayer2);
     _backend->insertCommand(std::move(releaseCommand));
 }
 
