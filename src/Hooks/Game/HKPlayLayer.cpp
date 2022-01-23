@@ -16,7 +16,7 @@ namespace Hook{
     void PlayLayer::_update(gd::PlayLayer* _this, float dt){
         //spdlog::info("PlayLayer::update, dt={}", dt);
         bot.update();
-        return orig<&PlayLayer::_update, Thiscall>(_this, dt);
+        return orig<&PlayLayer::_update, Thiscall>(_this, 1.0f/ bot.getFPS());
     }
 
     void PlayLayer::_resetLevel(gd::PlayLayer* _this){
