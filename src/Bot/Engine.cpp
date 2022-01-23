@@ -112,4 +112,9 @@ bool Bot::exportMacro(const std::string& outFilename){
     return false;
 }
 
-
+#include <cocos2d.h>
+void Bot::setFPS(float fps){
+    //Temporary, switch over to MVC
+    _fps = fps;
+    cocos2d::CCDirector::sharedDirector()->setAnimationInterval(1.0/fps);
+}

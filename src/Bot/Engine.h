@@ -55,12 +55,14 @@ public:
 class Bot{
     BotPlayer _player1;
     BotPlayer _player2;
+    float _fps=60.0f;
     EXTEND_DESERIALIZER_ACCESS;
 public:
     void setBotBackend(BackendType backendId);
     void insertClick(TargetPlayer player);
     void insertRelease(TargetPlayer player);
-    void setFPS(float fps){};
+    void setFPS(float fps);
+    float getFPS() const {return _fps;}
     void rewind();
     void rollback();
     void update();
