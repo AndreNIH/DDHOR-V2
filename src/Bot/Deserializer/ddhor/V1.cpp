@@ -8,6 +8,8 @@
 #include "../../Backend/XPosBackend.h"
 #include "../../Commands/ClickCommands.h"
 #include <spdlog/spdlog.h>
+#include <ErrorHandling/DExceptions.h>
+
 #pragma pack(push, 1)
 struct DDHORHeader{
     char magic[4] = {0};
@@ -33,13 +35,13 @@ namespace Deserializer
 {
     void V1::deserialize(FrameBackend* object)
     {
-        throw UnsupportedConversion{"V1 DDHOR Files do not support frame based behaviour"};
+        throw DEX::IllegalOperation{"V1 DDHOR Files do not support frame based behaviour"};
     }
     
     void V1::deserialize(XPosBackend* target) 
     {
         std::ifstream file(getFilename(), std::ios::binary);
-        if(!file.is_open()) throw DerError{getFilename() + " not found"};
+        if(!file.is_open()) throw DEX::FileNotFound{getFilename() + " not found"};
         DDHORHeader header = binaryRead<DDHORHeader>(file);
         
         const bool p2 = target->getPurpose() == BackendPurpose::PLAYER_2;
@@ -60,7 +62,7 @@ namespace Deserializer
 
     void V1::deserialize(Bot* target){
         std::ifstream file(getFilename(), std::ios::binary);
-        if(!file.is_open()) throw DerError{getFilename() + " not found"};
+        if(!file.is_open()) throw DEX::FileNotFound{getFilename() + " not found"};
         DDHORHeader header;
         file.read(reinterpret_cast<char*>(&header), sizeof(DDHORHeader));
         target->setFPS(header.fps);

@@ -5,10 +5,12 @@
 #include "Backend/XPosBackend.h"
 #include <spdlog/fmt/bin_to_hex.h>
 #include <algorithm>
+#include <ErrorHandling/DExceptions.h>
+#include <ErrorHandling/Logger.h>
 void BotPlayer::verifyPtrSafety(){
     if(_backend == nullptr){
-        const std::string msg = "Attempted to access nulled backend object";
-        throw std::runtime_error{msg};
+        const std::string msg = "Attempted to access null CommandBackend object";
+        throw DEX::NullException{msg};
     }
 }
 
@@ -100,8 +102,11 @@ bool Bot::importMacro(const std::string& inFilename){
     try{
         deserializer->deserialize(this);
         return true;
-    }catch(const Deserializer::DerError& ex){
-        spdlog::error("Exception caught. {} at line {}.\nDetails: {}", __FILE__, __LINE__, ex.what());
+    }catch(const DEX::DeserializerError& ex){
+        LOG_EXCEPTION(ex, ex.what());
+        return false;
+    }catch(const DEX::FileNotFound& ex){
+        LOG_EXCEPTION(ex, ex.what());
         return false;
     }
     
