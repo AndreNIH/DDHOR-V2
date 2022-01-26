@@ -5,6 +5,7 @@
 #include <typeinfo>
 #include "ddhor/V1.h"
 #include "ddhor/V2.h"
+#include <ErrorHandling/DExceptions.h>
 
 namespace Deserializer{
     std::unique_ptr<BotDeserializer> BotDeserializer::create(const std::string& id) 
@@ -34,14 +35,14 @@ namespace Deserializer{
         const auto msg = fmt::format("{} deserializer does not support {} objects", 
             typeid(this).name(), 
             typeid(object).name());
-        throw DerError{msg};
+        throw DEX::IllegalOperation{msg};
     }
 
     void BotDeserializer::deserialize(CmdFrameBackend* object){
         const auto msg = fmt::format("{} deserializer does not support {} objects", 
             typeid(this).name(), 
             typeid(object).name());
-        throw DerError{msg};
+        throw DEX::IllegalOperation{msg};
     }
 
 

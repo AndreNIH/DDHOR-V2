@@ -28,4 +28,4 @@ set(GD_HEADERS
     ${CMAKE_CURRENT_LIST_DIR}/deps/gd/include
 )
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${GD_HEADERS})
+target_include_directories(${PROJECT_NAME} PUBLIC ${GD_HEADERS} src/)

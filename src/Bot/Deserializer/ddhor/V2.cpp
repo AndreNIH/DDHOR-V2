@@ -9,7 +9,7 @@
 #include "../../Backend/FrameBackend.h"
 #include "../../Engine.h"
 #include "../../Commands/ClickCommands.h"
-
+#include <ErrorHandling/DExceptions.h>
 
 std::unique_ptr<BaseCommand> createPlayerInputCommand(const std::string& id, bool p2){
     std::unique_ptr<BaseCommand> command = nullptr;
@@ -27,12 +27,12 @@ namespace Deserializer
         if(!_bufferedJSON.has_value()){
             try{
                 std::ifstream file(this->getFilename());
-                if(!file.is_open()) throw DerError{getFilename() + " not found"};
+                if(!file.is_open()) throw DEX::FileNotFound{getFilename() + " not found"};
                 nlohmann::json object;
                 file >> object;
                 _bufferedJSON = object;
             }catch(nlohmann::json::exception& ex){
-                throw DerError(ex.what());
+                throw DEX::DeserializerError(ex.what());
             }
         }
         return _bufferedJSON.value();
@@ -50,7 +50,7 @@ namespace Deserializer
             const int pos = input.at("position");
             const std::string action = input.at("action");
             std::unique_ptr<BaseCommand> command = createPlayerInputCommand(action, isP2);
-            if(command == nullptr) throw DerError{fmt::format("Unrecognized command: {}", action)};
+            if(command == nullptr) throw DEX::DeserializerError{fmt::format("Unrecognized command: {}", action)};
             target->_posncom.push_back({pos, std::move(command)});
         }
     }
@@ -64,18 +64,18 @@ namespace Deserializer
             const float pos = input.at("position");
             const std::string action = input.at("action");
             std::unique_ptr<BaseCommand> command = createPlayerInputCommand(action, isP2);
-            if(command == nullptr) throw DerError{fmt::format("Unrecognized command: {}", action)};
+            if(command == nullptr) throw DEX::DeserializerError{fmt::format("Unrecognized command: {}", action)};
             target->_posncom.push_back({pos, std::move(command)});
         }
     }    
 
 
     void V2::deserialize(CmdFrameBackend* target){
-        throw DerError{"Not yet implemented, flag1"};
+        throw DEX::IllegalOperation{"Not yet implemented, flag1"};
     }
    
     void V2::deserialize(CmdXPosBackend* target){
-        throw DerError{"Not yet implemented, flag2"};
+        throw DEX::IllegalOperation{"Not yet implemented, flag2"};
     }
     
     void V2::deserialize(Bot* target){
@@ -86,7 +86,7 @@ namespace Deserializer
             target->_player1._backend->runDeserializer(this);
             target->_player2._backend->runDeserializer(this);
         }catch(const nlohmann::json::exception& ex){
-            throw DerError(ex.what());
+            throw DEX::DeserializerError{ex.what()};
         }
     }
 }
