@@ -8,6 +8,7 @@
 #include <Loader/TextureLoader.h>
 #include <fmt/format.h>
 #include <GUI/GMDX/AlertBox.h>
+#include <spdlog/spdlog.h>
 void onTexturesLoaded(){
     const char* txMenuTest = "Texture::DS_Menu";
     Tester tester;
@@ -39,6 +40,8 @@ void mod_main(HMODULE mod){
     AllocConsole();
     freopen_s(reinterpret_cast<FILE**>(stdout), "CONOUT$", "w", stdout);
     freopen_s(reinterpret_cast<FILE**>(stdin), "CONIN$", "r", stdin);
+    
+    spdlog::set_level(spdlog::level::debug);
     gd::init();
     Hook::PlayLayer::memInit();
     Hook::LevelInfoLayer::memInit();
