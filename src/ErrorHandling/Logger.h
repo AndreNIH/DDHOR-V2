@@ -59,6 +59,7 @@ namespace li{
         }
         auto errormsg = fmt::format(msg, typeid(ExceptionT).name(), line, filename);
         Logger::get().log()->error(errormsg);
+        Logger::get().log()->flush();
     }
 }
 
