@@ -16,4 +16,9 @@ namespace rtc{
     void notNull(const std::unique_ptr<T>& ptr) {
         notNull(ptr.get());
     }
+
+    template<typename T>
+    void notNull(const std::shared_ptr<T>& ptr) {
+        notNull(ptr.get());
+    }
 }
