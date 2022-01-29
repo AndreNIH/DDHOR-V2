@@ -11,12 +11,14 @@
 #include <spdlog/spdlog.h>
 void onTexturesLoaded(){
     const char* txMenuTest = "Texture::DS_Menu";
+    const char* txBtnTest  = "Texture::DS_PlayButton";
     Tester tester;
     bool success = tester.add(new TextureVerifier(txMenuTest,"D2B_BotMenu_001.png"))
                          .add(new TextureVerifier(txMenuTest,"D2B_LoadBtn_001.png"))
                          .add(new TextureVerifier(txMenuTest,"D2B_RecordBtn_001.png"))
                          .add(new TextureVerifier(txMenuTest,"D2B_StopPlayBtn_001.png"))
                          .add(new TextureVerifier(txMenuTest,"D2B_StopRecordBtn_001.png"))
+                         .add(new MultiTextureVerifier(txBtnTest, "GJ_loadPlayBtn_{:03}.png",0,30))
                          .runAllTests();
     if(!success) {
         const float size = cocos2d::CCDirector::sharedDirector()->getWinSize().width * 0.75;
