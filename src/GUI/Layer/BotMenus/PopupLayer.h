@@ -18,10 +18,10 @@ protected:
 using namespace cocos2d;
 
 class PopupLayer : public gd::FLAlertLayer{
-private:
+protected:
     const CCSize _layerDimensions;
     const std::string _backgroundImage;
-    
+private:
     void enableLayerInput();
     void onClose(CCObject*);
     void keyDown(enumKeyCodes key) override final;
