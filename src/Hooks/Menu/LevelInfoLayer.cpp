@@ -12,8 +12,10 @@ namespace Hook{
         orig<&_init,Thiscall>(self, gamelevel);
         auto button = ProgressButton::create();
         auto pos = reinterpret_cast<CCNode*>(self->m_pPlayBtnMenu->getChildren()->objectAtIndex(0))->getPosition();
+        auto loader = std::make_shared<LoaderWrapper>(self, gd::base+0x179730 );
         button->setPosition(pos);
         button->setSizeMultiplier(1.25);
+        button->setLevelLoader(loader);
         self->m_pPlayBtnMenu->removeAllChildren();
         self->m_pPlayBtnMenu->addChild(button);
         return true;

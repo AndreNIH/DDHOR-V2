@@ -48,7 +48,8 @@ void ProgressButton::activate(){
 
 void ProgressButton::onLoadLevel(CCObject* sender){
     try{
-        //todo
+        rtc::notNull(_loader);
+        _loader->invoke();
     }catch(const DEX::NullException& ex){
         LOG_EXCEPTION(ex);
     }
@@ -85,6 +86,10 @@ void ProgressButton::restartButtonSprite(){
 
 void ProgressButton::setSizeMultiplier(float multiplier){
     _sizeMult=multiplier;
+}
+
+void ProgressButton::setLevelLoader(std::shared_ptr<LoaderWrapper>& loader){
+    _loader=loader;
 }
 
 bool ProgressButton::init(){
