@@ -3,6 +3,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_TOOLCHAIN_FILE ${CMAKE_SOURCE_DIR}/deps/vcpkg/scripts/buildsystems/vcpkg.cmake)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(DDHORV3 VERSION 0.1.0)
 find_package(nlohmann_json CONFIG REQUIRED)
@@ -29,3 +30,8 @@ set(GD_HEADERS
 )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${GD_HEADERS} src/)
+
+add_custom_command(TARGET ${PROJECT_NAME}
+    PRE_BUILD
+    COMMAND taskkill /f /fi "pid gt 0" /im GeometryDash.exe
+)
