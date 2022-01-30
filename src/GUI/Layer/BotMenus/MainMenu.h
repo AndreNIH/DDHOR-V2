@@ -1,6 +1,7 @@
 #pragma once
-#include "../PopupLayer.h"
 #include <cocos2d.h>
+#include "../PopupLayer.h"
+#include "../../LevelLoader.h"
 
 using namespace cocos2d;
 
