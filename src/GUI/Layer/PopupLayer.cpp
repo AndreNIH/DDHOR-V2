@@ -13,7 +13,7 @@ void PopupLayer::enableLayerInput(){
     this->setKeyboardEnabled(true);
 	this->setKeypadEnabled(true);
 	this->setTouchEnabled(true);
-	director->getTouchDispatcher()->setForcePrio(2);
+	director->getTouchDispatcher()->incrementForcePrio(2);
 }
 
 void PopupLayer::onClose(CCObject* sender){
@@ -69,5 +69,5 @@ bool PopupLayer::init(){
 
 
 PopupLayer::~PopupLayer(){
-
+	CCDirector::sharedDirector()->getTouchDispatcher()->decrementForcePrio(2);
 }
