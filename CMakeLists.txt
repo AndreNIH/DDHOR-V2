@@ -8,7 +8,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 project(DDHORV3 VERSION 0.1.0)
 find_package(nlohmann_json CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
-
+find_package(Microsoft.GSL CONFIG REQUIRED)
 
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
 

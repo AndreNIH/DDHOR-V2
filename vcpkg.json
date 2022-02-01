@@ -5,6 +5,7 @@
     "nlohmann-json",
     "fmt",
     "spdlog",
-    "gtest"
+    "gtest",
+    "ms-gsl"
   ]
 }
