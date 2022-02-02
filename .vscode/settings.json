@@ -81,7 +81,9 @@
         "set": "cpp",
         "deque": "cpp",
         "queue": "cpp",
-        "stack": "cpp"
+        "stack": "cpp",
+        "pointers": "cpp",
+        "gsl_assert": "cpp"
     },
     "discord.enabled": true
 }

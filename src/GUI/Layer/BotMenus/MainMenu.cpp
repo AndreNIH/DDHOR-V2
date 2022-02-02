@@ -3,13 +3,21 @@
 #include <utility>
 #include <ErrorChecking/TypeChecking.h>
 #include <ErrorHandling/Logger.h>
+#include "PlaybackMenu.h"
+#include  "RecorderMenu.h"
 
 void MainMenu::onLoad(CCObject* sender){
-
+    auto scene = CCDirector::sharedDirector()->getRunningScene();
+    auto menu = PlaybackMenu::create();
+    if(!menu) return;
+    scene->addChild(menu,scene->getHighestChildZ()+1);
 }
 
 void MainMenu::onRecord(CCObject* sender){
-
+    auto scene = CCDirector::sharedDirector()->getRunningScene();
+    auto menu = RecorderMenu::create();
+    if(!menu) return;
+    scene->addChild(menu,scene->getHighestChildZ()+1);
 }
 
 void MainMenu::onNormal(CCObject* sender){
