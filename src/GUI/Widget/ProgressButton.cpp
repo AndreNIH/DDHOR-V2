@@ -4,7 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <fmt/format.h>
-#include "../Layer/BotMenus/MainMenu/MainMenu.h"
+#include <GUI/Layer/BotMenus/MainMenu.h>
 
 CCSprite* ProgressButton::getDefaultSprite(){
     return CCSprite::createWithSpriteFrameName("GJ_playBtn2_001.png");
