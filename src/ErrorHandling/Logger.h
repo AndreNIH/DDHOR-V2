@@ -9,13 +9,9 @@ private:
     std::shared_ptr<spdlog::logger> _logger=nullptr;
     Logger();
 public:
-    static Logger& get(){
+    static spdlog::logger* log(){
         static Logger l;
-        return l;
-    }
-
-    spdlog::logger* log(){
-        return _logger.get();
+        return l._logger.get();
     }
 
     Logger(const Logger&)=delete;
@@ -58,8 +54,8 @@ namespace li{
             msg += "Details: " + stringify(additionalArgs...);
         }
         auto errormsg = fmt::format(msg, typeid(ExceptionT).name(), line, filename);
-        Logger::get().log()->error(errormsg);
-        Logger::get().log()->flush();
+        Logger::log()->error(errormsg);
+        Logger::log()->flush();
     }
 }
 

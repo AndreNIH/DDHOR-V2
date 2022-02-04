@@ -5,7 +5,7 @@
 bool TextureVerifier::runTest(){
     auto spriteCache = cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache();
     if(!spriteCache->spriteFrameByName(_textureName.c_str())){
-        Logger::get().log()->warn(
+        Logger::log()->warn(
             "[TextureVerifier] Failed test '{}': Could not find sprite '{}' loaded in memory", 
             ITest::getTestName(),
             _textureName
@@ -22,7 +22,7 @@ bool MultiTextureVerifier::runTest(){
         for(int i=_minNumber; i <= _maxNumber; i++){
             std::string targetTexture = fmt::format(_baseTexture, i);
             if(!spriteCache->spriteFrameByName(targetTexture.c_str())){
-                Logger::get().log()->warn(
+                Logger::log()->warn(
                     "[TextureVerifier] Failed test '{}': Could not find sprite '{}' loaded in memory", 
                     ITest::getTestName(),
                     targetTexture
