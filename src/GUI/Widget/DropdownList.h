@@ -7,16 +7,6 @@
 
 namespace widget{
     using namespace cocos2d;
-    
-    class DropdownItem : public CCMenuItem{
-    private:
-        extension::CCScale9Sprite* _bg = nullptr;
-    public:
-        bool init(const CCSize& size);
-        void setContentSize(const CCSize& contentSize) override;
-        
-    };
-    
     class DropdownList : public cocos2d::CCMenu, private gd::TextInputDelegate{
     private:
         typedef void(cocos2d::CCObject::* TextboxCallback)(gd::CCTextInputNode* sender);
@@ -48,7 +38,8 @@ namespace widget{
         void setPositionX(float x) override;
         void setPositionY(float y) override;*/
         void setSize(const CCSize& size);
-        CREATE_FUNC(DropdownList)
+        static DropdownList* create(CCSize& size);
+        static DropdownList* create();
         //Callbacks()
         /*void bindToTextbox(gd::CCTextInputNode* textInput);
         void bindToReceiver(CCObject* reveiver);
