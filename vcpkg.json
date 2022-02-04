@@ -6,6 +6,6 @@
     "fmt",
     "spdlog",
     "gtest",
-    "ms-gsl"
+    "gsl-lite"
   ]
 }
