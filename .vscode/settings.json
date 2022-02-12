@@ -83,7 +83,8 @@
         "queue": "cpp",
         "stack": "cpp",
         "pointers": "cpp",
-        "gsl_assert": "cpp"
+        "gsl_assert": "cpp",
+        "span": "cpp"
     },
     "discord.enabled": true
 }
