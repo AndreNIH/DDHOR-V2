@@ -17,6 +17,7 @@ namespace widget{
         CCArray _drawableElements;
         unsigned int _maxDisplayItems = 5u;
         unsigned int _displayPosition = 0u;
+        const float m_padding = 2.0f;
         
         void onItemSelected(CCObject* sender){std::cout << "AMOGUSSSS!";};
 
@@ -24,27 +25,28 @@ namespace widget{
         void scrollWheel(float x, float y) override{};
 
         //Forwarding methods for TextInputDelegate
-        void textChanged(gd::CCTextInputNode*){};
-        void textInputOpened(gd::CCTextInputNode*){};
+        void textChanged(gd::CCTextInputNode*) override{};
+        void textInputOpened(gd::CCTextInputNode*) override{};
+        void textInputClosed(gd::CCTextInputNode*) override{};
     public:
+        
+        void setMaxDisplayItems(int maxItems);
+        
         void add(const std::string& element);
-        //void clear();
-        //void setMaxDisplayItems(int maxItems);
+        void clear();
         void refresh();
-        //void displayList();
-        //void hideList();
 
-        /*void setPosition(const cocos2d::CCPoint& position) override;
-        void setPositionX(float x) override;
-        void setPositionY(float y) override;*/
         void setSize(const CCSize& size);
+        const CCSize& getContentSize() const override;
         static DropdownList* create(CCSize& size);
         static DropdownList* create();
-        //Callbacks()
-        /*void bindToTextbox(gd::CCTextInputNode* textInput);
-        void bindToReceiver(CCObject* reveiver);
-        void setTextEditedCallback(TextboxCallback* editedCallback);
-        void setTextOpenCallback(TextboxCallback* openedCallback);*/
+        
+        //Callbacks
+        void bindToTextbox(gd::CCTextInputNode* textInput);
+        void bindTextEditedCallback(TextboxCallback* editedCallback);
+        void bindTextOpenCallback(TextboxCallback* openedCallback);
+        void bindTextboxCloseCallback(TextboxCallback* closedCallback);
+        
         
 
     };
